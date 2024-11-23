@@ -1,0 +1,86 @@
+@tailwind base; /* Inclut les styles de base de Tailwind (reset CSS, etc.) */
+@tailwind components; /* Inclut les styles des composants de Tailwind */
+@tailwind utilities; /* Inclut les utilitaires (classes utilitaires) de Tailwind */
+
+/* Change le curseur par défaut sur tout le site */
+
+@layer base {
+  /* Définition des variables CSS pour les couleurs et le thème */
+  :root {
+    /* Couleurs principales (mode clair) */
+    --background: 0 0% 100%; /* Couleur de fond principale (blanc) */
+    --foreground: 222.2 84% 4.9%; /* Couleur du texte principale (noir ou proche) */
+
+    --card: 0 0% 100%; /* Couleur de fond des cartes (blanc) */
+    --card-foreground: 222.2 84% 4.9%; /* Texte sur les cartes */
+
+    --popover: 0 0% 100%; /* Couleur de fond des popovers (menus contextuels) */
+    --popover-foreground: 222.2 84% 4.9%; /* Texte sur les popovers */
+
+    --primary: 222.2 47.4% 11.2%; /* Couleur primaire (bleu sombre) */
+    --primary-foreground: 210 40% 98%; /* Texte sur fond primaire (blanc cassé) */
+
+    --secondary: 210 40% 96.1%; /* Couleur secondaire (gris clair) */
+    --secondary-foreground: 222.2 47.4% 11.2%; /* Texte sur fond secondaire (bleu sombre) */
+
+    --muted: 210 40% 96.1%; /* Couleur neutre (gris clair) */
+    --muted-foreground: 215.4 16.3% 46.9%; /* Texte sur fond neutre (gris foncé) */
+
+    --accent: 210 40% 96.1%; /* Couleur d'accentuation (gris clair) */
+    --accent-foreground: 222.2 47.4% 11.2%; /* Texte sur fond accentuation (bleu sombre) */
+
+    --destructive: 0 84.2% 60.2%; /* Couleur pour les actions destructives (rouge vif) */
+    --destructive-foreground: 210 40% 98%; /* Texte sur fond destructif (blanc cassé) */
+
+    --border: 214.3 31.8% 91.4%; /* Couleur des bordures (gris très clair) */
+    --input: 214.3 31.8% 91.4%; /* Couleur des champs de formulaire (gris très clair) */
+    --ring: 222.2 84% 4.9%; /* Couleur des anneaux (focus, hover) */
+
+    --radius: 0.5rem; /* Rayon des bordures arrondies par défaut */
+  }
+
+  /* Définition des couleurs pour le mode sombre */
+  .dark {
+    --background: 222.2 84% 4.9%; /* Couleur de fond principale (gris foncé) */
+    --foreground: 210 40% 98%; /* Couleur du texte principale (blanc cassé) */
+
+    --card: 222.2 84% 4.9%; /* Couleur de fond des cartes (gris foncé) */
+    --card-foreground: 210 40% 98%; /* Texte sur les cartes */
+
+    --popover: 222.2 84% 4.9%; /* Couleur de fond des popovers (gris foncé) */
+    --popover-foreground: 210 40% 98%; /* Texte sur les popovers */
+
+    --primary: 210 40% 98%; /* Couleur primaire (blanc cassé) */
+    --primary-foreground: 222.2 47.4% 11.2%; /* Texte sur fond primaire (bleu sombre) */
+
+    --secondary: 217.2 32.6% 17.5%; /* Couleur secondaire (gris foncé) */
+    --secondary-foreground: 210 40% 98%; /* Texte sur fond secondaire (blanc cassé) */
+
+    --muted: 217.2 32.6% 17.5%; /* Couleur neutre (gris foncé) */
+    --muted-foreground: 215 20.2% 65.1%; /* Texte sur fond neutre (gris clair) */
+
+    --accent: 217.2 32.6% 17.5%; /* Couleur d'accentuation (gris foncé) */
+    --accent-foreground: 210 40% 98%; /* Texte sur fond accentuation (blanc cassé) */
+
+    --destructive: 0 62.8% 30.6%; /* Couleur pour les actions destructives (rouge sombre) */
+    --destructive-foreground: 210 40% 98%; /* Texte sur fond destructif (blanc cassé) */
+
+    --border: 217.2 32.6% 17.5%; /* Couleur des bordures (gris foncé) */
+    --input: 217.2 32.6% 17.5%; /* Couleur des champs de formulaire (gris foncé) */
+    --ring: 212.7 26.8% 83.9%; /* Couleur des anneaux (focus, hover) */
+  }
+}
+
+@layer base {
+  /* Applique des bordures globalement */
+  * {
+    @apply border-border; /* Applique la couleur de bordure définie dans la variable `--border` */
+  }
+  /* Définit le fond et la couleur du texte pour le `body` */
+  body {
+    @apply bg-background text-foreground; /* Utilise les variables CSS pour le thème global */
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
