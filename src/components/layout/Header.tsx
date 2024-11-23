@@ -1,19 +1,18 @@
 // Imports React hooks and necessary components
 import { useEffect, useState } from "react";
-import { AnimatedMenuButton } from "../ui/AnimatedMenuButton"; // Custom animated button for menu toggling
-import { UserMenu } from "./UserMenu"; // Menu component for user-related actions
-import { User } from "../../types/user"; // Type definition for the `User` object
 import { Link } from "react-router-dom";
+import { AnimatedMenuButton } from "../ui/AnimatedMenuButton"; // Custom animated button for menu toggling
 
 // Props definition for the Header component
-interface HeaderProps {
-  user: User | null; // User object, or null if not logged in
-  onLogin: () => void; // Function to handle login action
-  onLogout: () => void; // Function to handle logout action
-}
+// interface HeaderProps {
+//   user: User | null; // User object, or null if not logged in
+//   onLogin: () => void; // Function to handle login action
+//   onLogout: () => void; // Function to handle logout action
+// }
 
 // Main Header component
-export function Header({ user, onLogin, onLogout }: HeaderProps) {
+// export function Header({ user, onLogin, onLogout }: HeaderProps) {
+export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State to track if the mobile menu is open
 
   // Effect to disable scrolling when the menu is open
@@ -46,10 +45,19 @@ export function Header({ user, onLogin, onLogout }: HeaderProps) {
             <a href="/#contact" className="text-lg font-medium transition-colors duration-300 hover:text-tech-blue">
               Contact
             </a>
+            <Link to="login" className="text-lg font-medium transition-colors duration-300 hover:text-tech-blue">
+              Login
+              {/* <button
+                  onClick={onLogin}
+                  className="text-lg font-medium transition-colors duration-300 hover:text-tech-blue"
+                ></button> */}
+            </Link>
+            {/*             
             {user ? (
               // Show user menu when logged in
               <UserMenu user={user} onLogout={onLogout} />
             ) : (
+              // <UserMenu user={user} onLogout={onLogout} />
               // Show login button when not logged in
               <Link to="login" className="text-lg font-medium transition-colors duration-300 hover:text-tech-blue">
                 Login
@@ -57,8 +65,9 @@ export function Header({ user, onLogin, onLogout }: HeaderProps) {
                   onClick={onLogin}
                   className="text-lg font-medium transition-colors duration-300 hover:text-tech-blue"
                 ></button> */}
-              </Link>
-            )}
+            {/* </Link> */}
+            {/* )} */}
+            */
           </nav>
 
           {/* Mobile navigation button */}
@@ -96,6 +105,18 @@ export function Header({ user, onLogin, onLogout }: HeaderProps) {
               </a>
             </li>
             <li>
+              <Link
+                to="login"
+                className="text-2xl font-medium text-white transition-colors duration-300 hover:text-tech-pink"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Login
+                {/* <button
+                  onClick={onLogin}
+                  className="text-lg font-medium transition-colors duration-300 hover:text-tech-blue"
+                ></button> */}
+              </Link>
+              {/* 
               {user ? (
                 // Show user menu when logged in
                 <UserMenu user={user} onLogout={onLogout} />
@@ -111,8 +132,9 @@ export function Header({ user, onLogin, onLogout }: HeaderProps) {
                   onClick={onLogin}
                   className="text-lg font-medium transition-colors duration-300 hover:text-tech-blue"
                 ></button> */}
-                </Link>
-              )}
+              {/* </Link> */}
+              {/* )}  */}
+              */
             </li>
           </ul>
         </nav>

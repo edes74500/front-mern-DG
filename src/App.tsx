@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
 import HomePage from "./pages/public/HomePage";
 import { Login } from "./pages/public/Login";
-import UserDashboard from "./pages/private/userDashboard";
+import UserDashboard from "./pages/private/UserDashboard";
 
 function App() {
   return (
