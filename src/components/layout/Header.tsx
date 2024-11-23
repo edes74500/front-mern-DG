@@ -47,13 +47,8 @@ export function Header() {
             </a>
             <Link to="login" className="text-lg font-medium transition-colors duration-300 hover:text-tech-blue">
               Login
-              {/* <button
-                  onClick={onLogin}
-                  className="text-lg font-medium transition-colors duration-300 hover:text-tech-blue"
-                ></button> */}
             </Link>
-            {/*             
-            {user ? (
+            {/*             {user ? (
               // Show user menu when logged in
               <UserMenu user={user} onLogout={onLogout} />
             ) : (
@@ -67,7 +62,6 @@ export function Header() {
                 ></button> */}
             {/* </Link> */}
             {/* )} */}
-            */
           </nav>
 
           {/* Mobile navigation button */}
@@ -111,10 +105,6 @@ export function Header() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Login
-                {/* <button
-                  onClick={onLogin}
-                  className="text-lg font-medium transition-colors duration-300 hover:text-tech-blue"
-                ></button> */}
               </Link>
               {/* 
               {user ? (
@@ -134,7 +124,6 @@ export function Header() {
                 ></button> */}
               {/* </Link> */}
               {/* )}  */}
-              */
             </li>
           </ul>
         </nav>
