@@ -37,24 +37,25 @@ const DashboardMenu = () => {
       <div
         className={`${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } fixed top-0 left-0 z-50  h-full w-64   transition-transform duration-300 md:sticky md:translate-x-0 bg-slate-500`}
+        } fixed top-0 left-0 z-50 h-full w-64 transition-transform duration-300 md:sticky md:translate-x-0 bg-slate-500`}
       >
-        <div className="w-full mb-4 text-xl font-bold text-white p-7 bg-slate-600">Dashboard Menu</div>
-        {/* Liens ou contenu du menu */}
-        <div className="p-5">
-          <ul className="space-y-8">
-            <li>
-              <Link to="/dashboard" className="py-2 text-white">
-                Notes List
-              </Link>
-            </li>
-
-            <li>
-              <Link to="settings" className="py-2 text-white">
-                Settings
-              </Link>
-            </li>
-          </ul>
+        <div className="sticky top-0 w-full ">
+          <div className="w-full mb-4 text-xl font-bold text-white p-7 bg-slate-600">Dashboard Menu</div>
+          {/* Liens ou contenu du menu */}
+          <div className="flex-grow p-5 overflow-auto">
+            <ul className="space-y-8">
+              <li>
+                <Link to="/dashboard" className="py-2 text-white">
+                  Notes List
+                </Link>
+              </li>
+              <li>
+                <Link to="settings" className="py-2 text-white">
+                  Settings
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </>
