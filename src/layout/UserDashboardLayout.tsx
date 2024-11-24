@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import DashboardMenu from "../../components/userDashboard/DashboardMenu";
+import DashboardMenu from "../components/userDashboard/DashboardMenu";
 
-const UserDashboard = () => {
+const UserDashboardLayout = () => {
   return (
     <div className="relative flex flex-col md:grid md:grid-cols-[auto_1fr] flex-grow">
       <DashboardMenu />
@@ -12,4 +12,4 @@ const UserDashboard = () => {
   );
 };
 
-export default UserDashboard;
+export default UserDashboardLayout;
