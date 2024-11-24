@@ -75,6 +75,7 @@
   /* Applique des bordures globalement */
   * {
     @apply border-border; /* Applique la couleur de bordure définie dans la variable `--border` */
+    @apply list-none; /* Supprime les styles de liste */
   }
   /* Définit le fond et la couleur du texte pour le `body` */
   body {
@@ -82,5 +83,11 @@
   }
   html {
     scroll-behavior: smooth;
+  }
+  /* Supprimer les puces des listes */
+
+  /* Optionnel : Suppression des marges par défaut des `li` */
+  li {
+    @apply m-0; /* Annule les marges */
   }
 }
