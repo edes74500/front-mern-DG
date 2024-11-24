@@ -1,6 +1,6 @@
 const DashboardContent = () => {
   return (
-    <div className={`flex-grow bg-gray-100 p-5 transition `}>
+    <div>
       DashboardContent Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis molestias sed modi hic?
       Dolorum nulla cupiditate, eos, quod, ipsam mollitia fugit voluptatum neque accusantium aut placeat delectus facere
       labore corrupti. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis placeat tempore rem soluta eveniet

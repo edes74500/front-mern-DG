@@ -1,11 +1,13 @@
-import DashboardContent from "../../components/userDashboard/DashboardContent";
+import { Outlet } from "react-router-dom";
 import DashboardMenu from "../../components/userDashboard/DashboardMenu";
 
 const UserDashboard = () => {
   return (
-    <div className="relative flex flex-col md:grid md:grid-cols-[auto_1fr] h-full">
+    <div className="relative flex flex-col md:grid md:grid-cols-[auto_1fr] flex-grow">
       <DashboardMenu />
-      <DashboardContent />
+      <div className={`flex-grow bg-gray-100 p-5 transition `}>
+        <Outlet />
+      </div>
     </div>
   );
 };
