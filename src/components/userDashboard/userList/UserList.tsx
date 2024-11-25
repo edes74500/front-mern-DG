@@ -23,7 +23,10 @@ function UserList() {
       <h1 className="mb-4 text-2xl font-bold text-gray-800">Liste des utilisateurs</h1>
       {isError && (
         <p className="text-2xl font-bold text-red-500">
-          Une erreur s'est produite. {error?.error?.message || error?.error || "Erreur inconnue."}
+          Une erreur s'est produite.{" "}
+          {"data" in error && error.data && typeof error.data === "object" && "message" in error.data
+            ? (error.data as { message?: string }).message || "Erreur inconnue."
+            : "Erreur inconnue."}
         </p>
       )}
 

@@ -7,6 +7,6 @@ export const apiSlice = createApi({
       return response.status >= 200 && response.status < 300 && !result.isError;
     },
   }),
-  endpoints: (builder) => ({}),
+  endpoints: () => ({}),
   tagTypes: ["User", "Note"],
 });

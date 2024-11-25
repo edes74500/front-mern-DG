@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { User } from "../../types/user";
+import { IUser } from "../../types/user";
 
 interface UserMenuProps {
-  user: User;
+  user: IUser;
   onLogout: () => void;
 }
 
@@ -12,8 +12,8 @@ export function UserMenu({ user, onLogout }: UserMenuProps) {
   return (
     <div className="relative">
       <button onClick={() => setIsOpen(!isOpen)} className="flex items-center space-x-2 focus:outline-none">
-        <img src={user.profilePicture} alt={user.name} width={32} height={32} className="rounded-full" />
-        <span className="hidden md:inline">{user.name}</span>
+        <img src={user.username} alt={user.username} width={32} height={32} className="rounded-full" />
+        <span className="hidden md:inline">{user.username}</span>
       </button>
       {isOpen && (
         <div className="absolute right-0 z-50 w-48 py-1 mt-2 bg-white rounded-md shadow-lg">

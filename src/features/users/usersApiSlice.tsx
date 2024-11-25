@@ -1,7 +1,7 @@
-import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
+import { createEntityAdapter } from "@reduxjs/toolkit";
 import { apiSlice } from "../../app/api/apiSlice";
-import { IUser } from "../../types/user";
 import { RootState } from "../../app/store";
+import { IUser } from "../../types/user";
 
 // Configuration de l'Entity Adapter
 const usersAdapter = createEntityAdapter<IUser>({});
