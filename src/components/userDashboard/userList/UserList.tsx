@@ -10,10 +10,10 @@ function UserList() {
   const [sort, setSort] = useState<"asc" | "desc">("asc");
   const [sortBy, setSortBy] = useState<keyof IUser>("username");
 
-  const { data, isLoading, isError } = useGetUsersQuery({ page, limit, sort, sortBy });
+  const { data, isLoading, isError, error } = useGetUsersQuery({ page, limit, sort, sortBy });
 
   if (isLoading) return <p>Chargement...</p>;
-  if (isError) return <p>Une erreur s'est produite.</p>;
+  // if (isError) return <p>Une erreur s'est produite.</p>;
 
   const totalPages = data?.totalPages || 1;
   const totalUsers = data?.total || 0;
@@ -21,7 +21,13 @@ function UserList() {
   return (
     <div className="p-6 rounded-lg shadow-md bg-gray-50">
       <h1 className="mb-4 text-2xl font-bold text-gray-800">Liste des utilisateurs</h1>
-      {data && (
+      {isError && (
+        <p className="text-2xl font-bold text-red-500">
+          Une erreur s'est produite. {error?.error?.message || error?.error || "Erreur inconnue."}
+        </p>
+      )}
+
+      {data && !isError && (
         <UserTable
           data={data}
           sortBy={sortBy}

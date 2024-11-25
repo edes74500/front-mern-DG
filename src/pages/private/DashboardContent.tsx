@@ -3,7 +3,7 @@ import UserList from "../../components/userDashboard/userList/UserList";
 
 const DashboardContent = () => {
   return (
-    <div>
+    <div className="flex flex-col gap-y-5">
       <UserList />
       <CreateUserForm />
     </div>
