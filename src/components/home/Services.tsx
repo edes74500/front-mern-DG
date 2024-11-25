@@ -1,12 +1,13 @@
-import { Smartphone, Laptop, Tablet } from "lucide-react";
-import { ServiceCard } from "../Service-Card";
+import { Laptop, Smartphone, Tablet } from "lucide-react";
+import { ServiceCard } from "./Service-Card";
 
 export function Services() {
   return (
-    <section id="services" className="py-16 md:py-24 bg-white">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold mb-8 md:mb-16 text-center text-tech-blue">Nos Services</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+    <section id="services" className="relative py-16 overflow-hidden bg-transparent max-w-1400 md:py-24">
+      {/* <AnimatedGradient /> */}
+      <div className="container px-4 mx-auto">
+        <h2 className="mb-8 text-3xl font-bold text-center md:text-4xl md:mb-16 text-tech-blue">Nos Services</h2>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-12">
           <ServiceCard
             icon={<Smartphone className="w-12 h-12 md:w-16 md:h-16 text-tech-purple" />}
             title="Réparation de smartphones"
