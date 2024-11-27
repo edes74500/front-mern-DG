@@ -69,6 +69,26 @@ export const usersApiSlice = apiSlice.injectEndpoints({
           : [{ type: "User", id: "LIST" }],
       //   refetchOnInvalidate: true,
     }),
+
+    getUserById: builder.query<IUser, { userId: string }>({
+      query: ({ userId }) => ({
+        url: `/users/${userId}`,
+        method: "GET",
+      }),
+      transformResponse: (response: any) => {
+        return {
+          ...response,
+          id: response._id, // Ajout d'un champ `id` basé sur `_id`
+        };
+      },
+      providesTags: (result) =>
+        result
+          ? [
+              { type: "User", id: result.id }, // Associe l'utilisateur par ID
+              { type: "User", id: "LIST" }, // Invalide aussi la liste
+            ]
+          : [{ type: "User", id: "LIST" }],
+    }),
     // Ajout de l'endpoint createUser
     createUser: builder.mutation<IUser, { username: string; password: string; roles: string[] }>({
       query: (newUser) => ({
@@ -79,10 +99,41 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 
       invalidatesTags: [{ type: "User", id: "LIST" }],
     }),
+    updateUserById: builder.mutation<
+      IUser,
+      { id: string; username?: string; password?: string; roles?: string[]; active?: boolean }
+    >({
+      query: ({ id, username, password, roles, active }) => ({
+        url: `/users/${id}`,
+        method: "PATCH",
+        body: { username, password, roles, active },
+      }),
+      invalidatesTags: (_, __, { id }) => [
+        { type: "User", id: "LIST" },
+        { type: "User", id: id },
+      ],
+    }),
+
+    deleteUserById: builder.mutation<IUser, { id: string }>({
+      query: ({ id }) => ({
+        url: `/users/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (_, __, { id }) => [
+        { type: "User", id: "LIST" },
+        { type: "User", id: id },
+      ],
+    }),
   }),
 });
 
-export const { useGetUsersQuery, useCreateUserMutation } = usersApiSlice;
+export const {
+  useGetUsersQuery,
+  useCreateUserMutation,
+  useGetUserByIdQuery,
+  useDeleteUserByIdMutation,
+  useUpdateUserByIdMutation,
+} = usersApiSlice;
 
 // Sélecteur pour les résultats bruts de l'API
 export const selectUsersResult = (queryArg: {

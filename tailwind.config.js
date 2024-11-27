@@ -1,78 +1,58 @@
 /** @type {import('tailwindcss').Config} */
-// Exportation de la configuration Tailwind CSS
+const plugin = require("tailwindcss/plugin");
+
 export default {
-  // Spécifie les fichiers où Tailwind CSS doit rechercher les classes utilisées
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-  // Étend les styles par défaut de Tailwind CSS
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", "./src/css/forms.css"],
+  darkMode: "class", // Active le mode sombre via la classe `dark`
   theme: {
     extend: {
-      // Ajout de nouvelles couleurs personnalisées
       colors: {
         // Couleurs spécifiques pour le projet
-        "tech-blue": "#007AFF", // Bleu personnalisé
-        "tech-purple": "#5856D6", // Violet personnalisé
-        "tech-pink": "#FF2D55", // Rose personnalisé
-        "tech-green": "#34C759", // Vert personnalisé
-        "tech-grey": "#8E8E93", // Gris personnalisé
-
-        // Couleurs dynamiques basées sur les variables CSS
-        border: "hsl(var(--border))", // Bordures
-        input: "hsl(var(--input))", // Champs de formulaire
-        ring: "hsl(var(--ring))", // Anneaux (focus, hover)
-        background: "hsl(var(--background))", // Couleur de fond générale
-        foreground: "hsl(var(--foreground))", // Couleur de texte par défaut
-
-        // Couleurs primaires
+        "tech-blue": "#007AFF",
+        "tech-purple": "#5856D6",
+        "tech-pink": "#FF2D55",
+        "tech-green": "#34C759",
+        "tech-grey": "#8E8E93",
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))", // Couleur primaire principale
-          foreground: "hsl(var(--primary-foreground))", // Texte sur fond primaire
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
-
-        // Couleurs secondaires
         secondary: {
-          DEFAULT: "hsl(var(--secondary))", // Couleur secondaire principale
-          foreground: "hsl(var(--secondary-foreground))", // Texte sur fond secondaire
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
-
-        // Couleurs destructives (pour les erreurs ou avertissements)
         destructive: {
-          DEFAULT: "hsl(var(--destructive))", // Couleur destructrice principale
-          foreground: "hsl(var(--destructive-foreground))", // Texte sur fond destructif
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
         },
-
-        // Couleurs neutres ou atténuées
         muted: {
-          DEFAULT: "hsl(var(--muted))", // Couleur neutre principale
-          foreground: "hsl(var(--muted-foreground))", // Texte sur fond neutre
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
-
-        // Couleurs d'accentuation
         accent: {
-          DEFAULT: "hsl(var(--accent))", // Couleur d'accent principale
-          foreground: "hsl(var(--accent-foreground))", // Texte sur fond d'accent
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
         },
-
-        // Couleurs pour les popovers (menus ou fenêtres contextuelles)
         popover: {
-          DEFAULT: "hsl(var(--popover))", // Couleur de fond des popovers
-          foreground: "hsl(var(--popover-foreground))", // Texte sur popover
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
         },
-
-        // Couleurs pour les cartes ou panneaux
         card: {
-          DEFAULT: "hsl(var(--card))", // Couleur de fond des cartes
-          foreground: "hsl(var(--card-foreground))", // Texte sur cartes
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
       },
-
-      // Ajout de nouvelles tailles pour les bordures arrondies
       borderRadius: {
-        lg: "var(--radius)", // Bordure arrondie large (personnalisable via une variable CSS)
-        md: "calc(var(--radius) - 2px)", // Bordure moyenne
-        sm: "calc(var(--radius) - 4px)", // Bordure petite
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
     },
   },
-  // Plugins supplémentaires (aucun n'est activé pour le moment)
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };

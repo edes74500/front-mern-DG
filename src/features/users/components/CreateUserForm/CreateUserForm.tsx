@@ -2,7 +2,7 @@ import { useState } from "react";
 import FormInput from "./FormInput";
 import RoleCheckboxGroup from "./RoleCheckboxGroup";
 import SubmitButton from "./SubmitButton";
-import { useCreateUserMutation } from "../../../features/users/usersApiSlice";
+import { useCreateUserMutation } from "../../usersApiSlice";
 
 function CreateUserForm() {
   const [username, setUsername] = useState("");

@@ -3,7 +3,6 @@
 @tailwind utilities; /* Inclut les utilitaires (classes utilitaires) de Tailwind */
 
 /* Change le curseur par défaut sur tout le site */
-
 @layer base {
   /* Définition des variables CSS pour les couleurs et le thème */
   :root {
@@ -73,6 +72,7 @@
 
 @layer base {
   /* Applique des bordures globalement */
+
   * {
     @apply border-border; /* Applique la couleur de bordure définie dans la variable `--border` */
     @apply list-none; /* Supprime les styles de liste */

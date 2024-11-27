@@ -1,4 +1,4 @@
-import { IUser } from "../../../types/user";
+import { IUser } from "../../../../types/user";
 
 interface UserTableHeaderProps {
   sortBy: keyof IUser;
@@ -8,12 +8,12 @@ interface UserTableHeaderProps {
 
 function UserTableHeader({ sortBy, sort, onSort }: UserTableHeaderProps) {
   const columns: Array<{ key: keyof IUser; label: string }> = [
-    { key: "id", label: "ID" },
+    // { key: "id", label: "ID" },
     { key: "username", label: "Nom d'utilisateur" },
-    { key: "active", label: "Actif" },
     { key: "dateCreated", label: "Date de création" },
     { key: "lastLogin", label: "Dernière connexion" },
     { key: "roles", label: "Rôles" },
+    { key: "active", label: "Actif" },
   ];
 
   return (
@@ -22,7 +22,7 @@ function UserTableHeader({ sortBy, sort, onSort }: UserTableHeaderProps) {
         {columns.map((column) => (
           <th
             key={column.key}
-            className="px-4 py-2 text-sm font-semibold text-left text-gray-600 border-b cursor-pointer"
+            className="px-4 py-2 text-sm font-semibold text-center text-gray-600 border-b cursor-pointer"
             onClick={() => onSort(column.key)}
           >
             {column.label}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const DashboardMenu = () => {
+const DashboardSidebarMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -45,8 +45,8 @@ const DashboardMenu = () => {
           <div className="flex-grow p-5 overflow-auto">
             <ul className="space-y-8">
               <li>
-                <Link to="/dashboard" className="py-2 text-white">
-                  Notes List
+                <Link to="/dashboard/user/list" className="py-2 text-white">
+                  Users List
                 </Link>
               </li>
               <li>
@@ -62,4 +62,4 @@ const DashboardMenu = () => {
   );
 };
 
-export default DashboardMenu;
+export default DashboardSidebarMenu;

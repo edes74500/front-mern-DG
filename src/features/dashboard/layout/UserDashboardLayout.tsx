@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import DashboardMenu from "../components/userDashboard/layout/DashboardMenu";
+import DashboardMenu from "../components/DashboardSidebarMenu";
 
 const UserDashboardLayout = () => {
   return (
