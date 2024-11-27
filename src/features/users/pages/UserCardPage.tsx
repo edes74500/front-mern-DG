@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { IUser } from "../../../types/user";
-import { useGetUserByIdQuery } from "../usersApiSlice";
+import { useGetUserByIdQuery } from "../state/usersApiSlice";
 import UserCard from "../components/UserCard/UserCard";
 
 const UserCardPage = () => {
@@ -11,17 +11,42 @@ const UserCardPage = () => {
 
   useEffect(() => {
     // Peut contenir d'autres effets spécifiques à la page
+    // Par exemple, suivi analytique, mise à jour du titre de la page, etc.
   }, []);
 
-  if (isLoading) return <p>Loading user...</p>;
-  if (isError || !userId) return <p>Error fetching user or invalid ID</p>;
-  if (!user) return <p>User not found</p>;
+  // Gestion des états de chargement et d'erreurs
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-lg font-medium text-gray-600">Chargement de l'utilisateur...</p>
+      </div>
+    );
+  }
 
+  if (isError || !userId) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-lg font-medium text-red-600">Erreur : utilisateur introuvable ou ID invalide.</p>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-lg font-medium text-gray-600">Utilisateur introuvable.</p>
+      </div>
+    );
+  }
+
+  // Affichage de la carte utilisateur
   return (
-    <UserCard
-      user={user}
-      onEdit={() => navigate(`/dashboard/user/edit/${userId}`)} // Gère la navigation
-    />
+    <div className="max-w-sm p-6 space-y-6 bg-white border rounded-lg shadow-md">
+      <UserCard
+        user={user}
+        onEdit={() => navigate(`/dashboard/users/edit/${userId}`)} // Gère la navigation
+      />
+    </div>
   );
 };
 

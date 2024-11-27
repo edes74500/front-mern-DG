@@ -24,7 +24,7 @@ function RoleCheckboxGroup({ roles, setRoles }: RoleCheckboxGroupProps) {
               checked={roles.includes(role)}
               className="mr-2"
             />
-            {role}
+            {role}w
           </label>
         ))}
       </div>

@@ -2,14 +2,15 @@ import { Route, Routes } from "react-router-dom";
 
 import "react-toastify/dist/ReactToastify.css";
 import LoginPage from "./features/auth/pages/LoginPage";
-import DashboardPage from "./features/dashboard/pages/DashboardPage";
+import DashboardSidebarMenu from "./features/dashboard/layout/UserDashboardLayout";
+import DashboardSettingsPage from "./features/dashboard/pages/DashboardSettingsPage";
+import DashboardWelcomePage from "./features/dashboard/pages/DashboardWelcomePage";
+import AddUserPage from "./features/users/pages/AddUserPage";
 import EditUserPage from "./features/users/pages/EditUserPage";
 import UserCardPage from "./features/users/pages/UserCardPage";
-import UserSettings from "./features/users/pages/UserSettings";
-import MainLayout from "./layout/MainLayout";
-import DashboardSidebarMenu from "./features/dashboard/layout/UserDashboardLayout";
-import HomePage from "./pages/HomePage";
 import UserListPage from "./features/users/pages/UserListPage";
+import MainLayout from "./layout/MainLayout";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
@@ -23,10 +24,11 @@ function App() {
         
         // userDashboard Menu layout */}
         <Route path="dashboard" element={<DashboardSidebarMenu />}>
-          <Route index element={<DashboardPage />} />
-          <Route path="settings" element={<UserSettings />} />
-          <Route path="user">
+          <Route index element={<DashboardWelcomePage />} />
+          <Route path="settings" element={<DashboardSettingsPage />} />
+          <Route path="users">
             <Route path="list" element={<UserListPage />} />
+            <Route path="add-user" element={<AddUserPage />} />
             <Route path="edit/:userId" element={<EditUserPage />} />
             <Route path=":userId" element={<UserCardPage />} />
           </Route>

@@ -1,5 +1,5 @@
 import { store } from "../../../app/store"; // Assure-toi que le store est exporté
-import { addNotification } from "../notificationSlice";
+import { addNotification } from "../state/notificationSlice";
 
 export const notify = (message: string, type: "success" | "error" | "info") => {
   store.dispatch(

@@ -1,7 +1,7 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
-import { apiSlice } from "../../app/api/apiSlice";
-import { RootState } from "../../app/store";
-import { IUser } from "../../types/user";
+import { apiSlice } from "../../../app/api/apiSlice";
+import { RootState } from "../../../app/store";
+import { IUser } from "../../../types/user";
 
 // Configuration de l'Entity Adapter
 const usersAdapter = createEntityAdapter<IUser>({});
@@ -90,7 +90,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
           : [{ type: "User", id: "LIST" }],
     }),
     // Ajout de l'endpoint createUser
-    createUser: builder.mutation<IUser, { username: string; password: string; roles: string[] }>({
+    createUser: builder.mutation<IUser, { username: string; password: string; roles: string[]; active: boolean }>({
       query: (newUser) => ({
         url: "/users",
         method: "POST",

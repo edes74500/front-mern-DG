@@ -2,8 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import UserTable from "../components/UserList/UserTable";
 import Pagination from "../components/UserList/Pagination";
 import { IUser } from "../../../types/user";
-import { useGetUsersQuery } from "../usersApiSlice";
+import { useGetUsersQuery } from "../state/usersApiSlice";
 import { notify } from "../../notifications/utils/notifications";
+import AddUserButton from "../components/UserList/AddUserButton";
 
 function UserListPage() {
   const [page, setPage] = useState(1);
@@ -37,9 +38,11 @@ function UserListPage() {
   // Rendu
 
   return (
-    <div className="p-6 rounded-lg shadow-md bg-gray-50">
+    <div className="">
       <h1 className="mb-4 text-2xl font-bold text-gray-800">Liste des utilisateurs</h1>
-
+      <div className="p-4">
+        <AddUserButton />
+      </div>
       <UserTable
         isLoading={isLoading}
         data={data}

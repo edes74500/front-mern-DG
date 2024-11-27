@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { RootState } from "../../../app/store";
-import { removeNotification } from "../notificationSlice";
+import { removeNotification } from "../state/notificationSlice";
 
 const NotificationProvider = () => {
   const dispatch = useDispatch();
