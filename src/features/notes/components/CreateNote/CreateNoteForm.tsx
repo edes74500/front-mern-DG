@@ -1,74 +1,64 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCreateUserMutation } from "../../state/usersApiSlice";
+import { useCreateNoteMutation } from "../../state/notesApiSlice";
 import { notify } from "../../../notifications/utils/notifications";
 import FormInput from "../../../../components/forms/FormInput";
-import { CheckCircle, XCircle } from "lucide-react";
-import RolesSelector from "../EditUser/RolesSelector";
 
-function CreateUserForm() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [roles, setRoles] = useState<string[]>([]);
-  const [active, setActive] = useState(true); // Ajout de l'état "Actif"
+function CreateNoteForm() {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  //   const [active, setActive] = useState(true); // État actif/inactif
 
-  const [createUser, { isLoading }] = useCreateUserMutation();
+  const userId = "6744916da9210e340159faec";
+
+  const [createNote, { isLoading }] = useCreateNoteMutation();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!username.trim() || !password.trim()) {
+    if (!title.trim() || !content.trim()) {
       notify("Veuillez remplir tous les champs obligatoires.", "error");
       return;
     }
 
     try {
-      const response = await createUser({ username, password, roles, active }).unwrap();
-      notify(`Utilisateur ${response.username} créé avec succès.`, "success");
-      navigate("/dashboard/users/list"); // Redirection vers la liste des utilisateurs
+      const response = await createNote({ title, content, userId }).unwrap();
+      notify(`Note "${response.title}" créée avec succès.`, "success");
+      navigate("/dashboard/notes/list"); // Redirection vers la liste des notes
     } catch (err: any) {
-      const errorMessage = err?.data?.message || "Erreur lors de la création de l'utilisateur.";
+      const errorMessage = err?.data?.message || "Erreur lors de la création de la note.";
       notify(errorMessage, "error");
     }
   };
 
   const handleCancel = () => {
     notify("Création annulée", "info");
-    navigate("/dashboard/users/list"); // Redirection vers la liste des utilisateurs
+    navigate("/dashboard/notes/list"); // Redirection vers la liste des notes
   };
 
   return (
-    <div className="p-6 mx-auto rounded-lg ">
-      <h2 className="mb-4 text-2xl font-bold text-gray-800">Créer un utilisateur</h2>
+    <div className="p-6 mx-auto rounded-lg">
+      <h2 className="mb-4 text-2xl font-bold text-gray-800">Créer une note</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Champ Username */}
+        {/* Champ Titre */}
+        <FormInput label="Titre" value={title} onChange={(e) => setTitle(e.target.value)} type="text" required />
+
+        {/* Champ Contenu */}
         <FormInput
-          label="Nom d'utilisateur"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          type="text"
+          label="contenu"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          isTextarea={true} // Indique que ce champ est un textarea
           required
         />
 
-        {/* Champ Password */}
-        <FormInput
-          label="Mot de passe"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          required
-        />
-
-        {/* Rôles */}
-        <RolesSelector roles={roles} setRoles={setRoles} />
-
-        {/* Actif */}
-        <div className="flex items-center gap-3 mt-4">
+        {/* Actif/Inactif */}
+        {/* <div className="flex items-center gap-3 mt-4">
           <button
             type="button"
-            onClick={() => setActive(!active)} // Toggle l'état actif/inactif
+            onClick={() => setActive(!active)} // Toggle actif/inactif
             className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md transition ${
               active ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
             }`}
@@ -85,7 +75,7 @@ function CreateUserForm() {
               </>
             )}
           </button>
-        </div>
+        </div> */}
 
         {/* Boutons */}
         <div className="flex justify-end gap-3">
@@ -114,4 +104,4 @@ function CreateUserForm() {
   );
 }
 
-export default CreateUserForm;
+export default CreateNoteForm;

@@ -11,6 +11,8 @@ import UserCardPage from "./features/users/pages/UserCardPage";
 import UserListPage from "./features/users/pages/UserListPage";
 import MainLayout from "./layout/MainLayout";
 import HomePage from "./pages/HomePage";
+import AddNotePage from "./features/notes/pages/CreateNotePage";
+import NoteListPage from "./features/notes/pages/NoteListPage";
 
 function App() {
   return (
@@ -26,6 +28,12 @@ function App() {
         <Route path="dashboard" element={<DashboardSidebarMenu />}>
           <Route index element={<DashboardWelcomePage />} />
           <Route path="settings" element={<DashboardSettingsPage />} />
+          <Route path="notes">
+            <Route path="list" element={<NoteListPage />} />
+            <Route path="create-note" element={<AddNotePage />} />
+            {/* <Route path="edit/:userId" element={<EditUserPage />} />
+            <Route path=":userId" element={<UserCardPage />} /> */}
+          </Route>
           <Route path="users">
             <Route path="list" element={<UserListPage />} />
             <Route path="add-user" element={<AddUserPage />} />

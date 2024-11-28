@@ -25,7 +25,7 @@ const RolesSelector = ({ roles, setRoles }: RolesSelectorProps) => {
     <div>
       <label className="block text-sm font-medium text-gray-600">Rôles</label>
       <div className="flex flex-wrap gap-2 mt-2">
-        {["Admin", "Employee", "Manager"].map((role) => (
+        {["Admin", "Manager", "Employee"].map((role) => (
           <button
             key={role}
             type="button" // Empêche le bouton de soumettre le formulaire

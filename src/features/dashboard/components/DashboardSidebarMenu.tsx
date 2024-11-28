@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Home, User, Settings } from "lucide-react"; // Import des icônes
+import { Home, User, Settings, Notebook } from "lucide-react"; // Import des icônes
 
 const DashboardSidebarMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,6 +49,11 @@ const DashboardSidebarMenu = () => {
           </Link>
           <div className="flex-grow p-5 overflow-auto">
             <ul className="space-y-8">
+              <li onClick={() => setIsMenuOpen(false)}>
+                <Link to="/dashboard/notes/list" className="flex items-center py-2 text-white">
+                  <Notebook className="w-5 h-5 mr-2" /> Notes
+                </Link>
+              </li>
               <li onClick={() => setIsMenuOpen(false)}>
                 <Link to="/dashboard/users/list" className="flex items-center py-2 text-white">
                   <User className="w-5 h-5 mr-2" /> Users List
