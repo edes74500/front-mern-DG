@@ -1,5 +1,5 @@
+import { ArrowLeft } from "lucide-react"; // Typage des icônes Lucide
 import React from "react";
-import { ArrowLeft, LucideIcon } from "lucide-react"; // Typage des icônes Lucide
 
 interface GenericButtonProps {
   text: string;

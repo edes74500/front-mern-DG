@@ -1,9 +1,9 @@
+import { Calendar, CheckCircle, Clock, Edit, User as UserIcon, XCircle } from "lucide-react";
 import React from "react";
-import { Edit, User as UserIcon, Calendar, Clock, CheckCircle, XCircle, ArrowLeft } from "lucide-react";
-import { IUser } from "../../../../types/user";
 import { useNavigate } from "react-router-dom";
 import RoleBadge from "../../../../components/RoleBadge";
 import GenericButton from "../../../../components/ui/GenericButton";
+import { IUser } from "../../../../types/user";
 
 interface UserCardProps {
   user: IUser;
