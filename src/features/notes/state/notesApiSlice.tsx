@@ -8,6 +8,12 @@ export const notesApiSlice = apiSlice.injectEndpoints({
         url: "/notes",
         method: "GET",
       }),
+      transformResponse: (response: any) => {
+        return response.map((note: Omit<INote, "id">) => ({
+          ...note,
+          id: note._id, // Ajout d'un champ `id` basé sur `_id`
+        }));
+      },
       providesTags: (result) =>
         result
           ? [{ type: "Note", id: "LIST" }, ...result.map((note) => ({ type: "Note" as const, id: note._id }))]

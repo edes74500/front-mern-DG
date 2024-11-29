@@ -12,7 +12,8 @@ import { UserIcon } from "lucide-react";
 const EditUserForm = () => {
   const { userId } = useParams<{ userId: IUser["id"] }>();
   const navigate = useNavigate();
-  const { data: user, isLoading, isError } = useGetUserByIdQuery({ userId: userId || "" });
+  const [isDeleting, setIsDeleting] = useState(false);
+  const { data: user, isLoading, isError } = useGetUserByIdQuery({ userId: userId || "" }, { skip: isDeleting });
 
   const [updateUser] = useUpdateUserByIdMutation();
   const [deleteUser] = useDeleteUserByIdMutation();
@@ -63,6 +64,7 @@ const EditUserForm = () => {
   };
 
   const onConfirmDelete = async () => {
+    setIsDeleting(true); // Bloque le fetch après suppression
     try {
       await deleteUser({ id: user.id }).unwrap();
       navigate("/dashboard/users/list");
@@ -70,6 +72,7 @@ const EditUserForm = () => {
       notify(`Utilisateur ${username} supprimé avec succès.`, "success");
     } catch (error: any) {
       notify(`Erreur : ${error?.data?.message || "Une erreur inconnue est survenue."}`, "error");
+      setIsDeleting(false);
     } finally {
     }
   };

@@ -41,12 +41,10 @@ const UserCardPage = () => {
 
   // Affichage de la carte utilisateur
   return (
-    <div className="max-w-sm p-6 space-y-6 bg-white border rounded-lg shadow-md">
-      <UserCard
-        user={user}
-        onEdit={() => navigate(`/dashboard/users/edit/${userId}`)} // Gère la navigation
-      />
-    </div>
+    <UserCard
+      user={user}
+      onEdit={() => navigate(`/dashboard/users/edit/${userId}`)} // Gère la navigation
+    />
   );
 };
 
