@@ -10,7 +10,7 @@ interface NotesListDisplayProps {
 function NotesListDisplay({ notes }: NotesListDisplayProps) {
   return (
     <div className="">
-      {notes.length === 0 ? (
+      {!notes || notes.length === 0 ? (
         <p className="text-lg text-gray-600">Aucune note à afficher.</p>
       ) : (
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">
@@ -21,7 +21,7 @@ function NotesListDisplay({ notes }: NotesListDisplayProps) {
             >
               <h3 className="flex items-center text-lg font-semibold text-gray-800">
                 <FileText className="w-5 h-5 mr-2 text-blue-500" />
-                <Link className="text-blue-500 " to={`/dashboard/notes/${note.id}`}>
+                <Link className="text-blue-500 " to={`/dashboard/notes/${note.slug}/${note.id}`}>
                   {note.title}
                 </Link>
               </h3>

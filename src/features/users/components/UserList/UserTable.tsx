@@ -5,19 +5,16 @@ import UserTableActionButtons from "./UserTableActionButtons";
 import { ChevronDown, ChevronUp, CheckCircle, XCircle } from "lucide-react";
 
 interface UserTableProps {
-  data:
-    | {
-        entities: Record<string, IUser>;
-        ids: string[];
-      }
-    | undefined;
+  users: IUser[];
   sortBy: keyof IUser;
   sort: "asc" | "desc";
   isLoading: boolean;
+  isFetching: boolean;
   onSort: (column: keyof IUser) => void;
+  isError: boolean;
 }
 
-function UserTable({ isLoading, data, sortBy, sort, onSort }: UserTableProps) {
+function UserTable({ isLoading, isFetching, users, sortBy, sort, isError, onSort }: UserTableProps) {
   const columns: Array<{ key: keyof IUser; label: string }> = [
     { key: "username", label: "Nom d'utilisateur" },
     { key: "dateCreated", label: "Date de création" },
@@ -54,60 +51,63 @@ function UserTable({ isLoading, data, sortBy, sort, onSort }: UserTableProps) {
 
         {/* Corps du tableau */}
         <tbody>
-          {data?.ids.map((id, index) => {
-            const user = data.entities[id];
-            return (
-              <tr key={id} className={`hover:bg-gray-50 ${index % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
-                {/* Colonne Username */}
-                <td className="py-3 pl-4 text-blue-600 border-b whitespace-nowrap">
-                  <Link to={`/dashboard/users/${id}`} className="font-medium hover:underline">
-                    {user.username}
-                  </Link>
-                </td>
+          {!isError &&
+            users.length > 0 &&
+            users.map((user, index) => {
+              return (
+                <tr key={user.id} className={`hover:bg-gray-50 ${index % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
+                  {/* Colonne Username */}
+                  <td className="py-3 pl-4 text-blue-600 border-b whitespace-nowrap">
+                    <Link to={`/dashboard/users/${user.id}`} className="font-medium hover:underline">
+                      {user.username}
+                    </Link>
+                  </td>
 
-                {/* Date Created */}
-                <td className="px-4 py-3 text-left border-b whitespace-nowrap">
-                  {new Date(user.dateCreated).toLocaleDateString()}
-                </td>
+                  {/* Date Created */}
+                  <td className="px-4 py-3 text-left border-b whitespace-nowrap">
+                    {new Date(user.dateCreated).toLocaleDateString()}
+                  </td>
 
-                {/* Last Login */}
-                <td className="px-4 py-3 text-left border-b whitespace-nowrap">
-                  {user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : "Jamais"}
-                </td>
+                  {/* Last Login */}
+                  <td className="px-4 py-3 text-left border-b whitespace-nowrap">
+                    {user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : "Jamais"}
+                  </td>
 
-                {/* Rôles */}
-                <td className="flex flex-wrap gap-2 px-4 py-3 text-left border-b whitespace-nowrap min-w-max">
-                  <RoleBadge roles={user.roles} />
-                </td>
+                  {/* Rôles */}
+                  <td className="flex flex-wrap gap-2 px-4 py-3 text-left border-b whitespace-nowrap min-w-max">
+                    <RoleBadge roles={user.roles} />
+                  </td>
 
-                {/* Active Status */}
-                <td className="px-4 py-3 text-left border-b whitespace-nowrap min-w-max">
-                  {user.active ? (
-                    <div className="flex items-center text-green-600">
-                      <CheckCircle size={18} className="mr-1" />
-                      <span>Oui</span>
-                    </div>
-                  ) : (
-                    <div className="flex items-center text-red-600">
-                      <XCircle size={18} className="mr-1" />
-                      <span>Non</span>
-                    </div>
-                  )}
-                </td>
+                  {/* Active Status */}
+                  <td className="px-4 py-3 text-left border-b whitespace-nowrap min-w-max">
+                    {user.active ? (
+                      <div className="flex items-center text-green-600">
+                        <CheckCircle size={18} className="mr-1" />
+                        <span>Oui</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center text-red-600">
+                        <XCircle size={18} className="mr-1" />
+                        <span>Non</span>
+                      </div>
+                    )}
+                  </td>
 
-                {/* Action Buttons */}
-                <td className="px-4 py-3 text-right border-b whitespace-nowrap">
-                  <UserTableActionButtons user={user} />
-                </td>
-              </tr>
-            );
-          })}
+                  {/* Action Buttons */}
+                  <td className="px-4 py-3 text-right border-b whitespace-nowrap">
+                    <UserTableActionButtons user={user} />
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
 
       {/* Messages d'état */}
-      {isLoading && <div className="w-full py-4 font-bold text-center text-gray-400">Chargement en cours...</div>}
-      {!data && !isLoading && (
+      {(isLoading || isFetching) && (
+        <div className="w-full py-4 font-bold text-center text-gray-400">Chargement en cours...</div>
+      )}
+      {!users && !isLoading && !isFetching && (
         <div className="w-full py-4 font-bold text-center text-red-500">Aucun utilisateur trouvé</div>
       )}
     </div>

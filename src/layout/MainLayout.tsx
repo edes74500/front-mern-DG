@@ -8,7 +8,7 @@ const MainLayout = () => {
       {" "}
       {/* Wrapper flex */}
       <Header />
-      <main className="flex flex-col flex-grow w-full h-full">
+      <main>
         {" "}
         {/* Permet au contenu principal de prendre tout l'espace disponible */}
         <Outlet />

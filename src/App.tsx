@@ -14,6 +14,7 @@ import HomePage from "./pages/HomePage";
 import AddNotePage from "./features/notes/pages/CreateNotePage";
 import NoteListPage from "./features/notes/pages/NoteListPage";
 import NoteCardPage from "./features/notes/pages/NoteCardPage";
+import EditNotePage from "./features/notes/pages/EditNotePage";
 
 function App() {
   return (
@@ -32,8 +33,8 @@ function App() {
           <Route path="notes">
             <Route path="list" element={<NoteListPage />} />
             <Route path="create-note" element={<AddNotePage />} />
-            <Route path=":noteId" element={<NoteCardPage />} />
-            {/* <Route path="edit/:userId" element={<EditUserPage />} /> */}
+            <Route path=":slug/:noteId" element={<NoteCardPage />} />
+            <Route path="edit/:noteId" element={<EditNotePage />} />
           </Route>
           <Route path="users">
             <Route path="list" element={<UserListPage />} />

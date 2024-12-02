@@ -9,7 +9,7 @@ interface Notification {
 }
 
 // État initial des notifications
-interface NotificationState {
+export interface NotificationState {
   notifications: Notification[];
 }
 

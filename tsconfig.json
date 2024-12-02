@@ -1,7 +1,11 @@
 {
   "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "compilerOptions": {
+    "rootDir": "../",
+    "baseUrl": "./src",
+    "paths": {
+      "@shared/*": ["../shared/*"] // Correspond à l'alias défini dans `vite.config.ts`
+    }
+  },
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]
 }

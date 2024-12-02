@@ -34,6 +34,7 @@ function UserListPage() {
   // Calcul des données liées à la pagination
   const totalPages = data?.totalPages || 1;
   const totalUsers = data?.total || 0;
+  const users = data?.users || [];
 
   // Rendu
 
@@ -45,7 +46,9 @@ function UserListPage() {
       </div>
       <UserTable
         isLoading={isLoading}
-        data={data}
+        isFetching={isFetching}
+        isError={isError}
+        users={users}
         sortBy={sortBy}
         sort={sort}
         onSort={(column) => {

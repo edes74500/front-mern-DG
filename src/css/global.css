@@ -84,6 +84,10 @@
   html {
     scroll-behavior: smooth;
   }
+
+  main {
+    @apply flex flex-col flex-grow w-full h-full m-auto
+  }
   /* Supprimer les puces des listes */
 
   /* Optionnel : Suppression des marges par défaut des `li` */

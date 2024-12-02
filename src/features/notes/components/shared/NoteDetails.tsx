@@ -38,14 +38,20 @@ const NoteDetails = ({ note }: NoteDetailsProps) => {
       {/* Statut */}
       <p className="flex items-center gap-2">
         {note.status === "active" ? (
-          <ArrowRightCircle className="w-5 h-5 text-green-500" />
+          <AlertCircle className="w-5 h-5 text-yellow-500" />
         ) : note.status === "archived" ? (
           <Archive className="w-5 h-5 text-gray-500" />
         ) : (
-          <AlertCircle className="w-5 h-5 text-yellow-500" />
+          <ArrowRightCircle className="w-5 h-5 text-green-500" />
         )}
         <span className="font-medium">Statut :</span>{" "}
-        {note.status === "active" ? "Active" : note.status === "archived" ? "Archivée" : "Assignée"}
+        {note.status === "active"
+          ? "Non assignée"
+          : note.status === "archived"
+          ? "Archivée"
+          : note.status === "completed"
+          ? "Completee"
+          : "Assignée"}
       </p>
 
       {/* Date de création */}

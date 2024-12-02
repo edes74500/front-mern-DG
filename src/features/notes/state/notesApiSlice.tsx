@@ -1,15 +1,15 @@
 import { apiSlice } from "../../../app/api/apiSlice";
-import { INote } from "../../../types/note";
+import { IApiNote, IApiNoteWithPopulatedUser, INote, INoteWithPopulatedUser } from "../../../types/note";
 
 export const notesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getNotes: builder.query<INote[], void>({
+    getNotes: builder.query<INoteWithPopulatedUser[], void>({
       query: () => ({
         url: "/notes",
         method: "GET",
       }),
-      transformResponse: (response: any) => {
-        return response.map((note: Omit<INote, "id">) => ({
+      transformResponse: (response: IApiNoteWithPopulatedUser[]) => {
+        return response.map((note) => ({
           ...note,
           id: note._id, // Ajout d'un champ `id` basé sur `_id`
         }));
@@ -21,12 +21,12 @@ export const notesApiSlice = apiSlice.injectEndpoints({
       // refetchOnInvalidate: true,
     }),
 
-    getNoteById: builder.query<INote, { noteId: string }>({
+    getNoteById: builder.query<INoteWithPopulatedUser, { noteId: string }>({
       query: ({ noteId }) => ({
         url: `/notes/${noteId}`,
         method: "GET",
       }),
-      transformResponse: (response: any) => {
+      transformResponse: (response: IApiNoteWithPopulatedUser) => {
         return {
           ...response,
           id: response._id, // Ajout d'un champ `id` basé sur `_id`
@@ -55,12 +55,12 @@ export const notesApiSlice = apiSlice.injectEndpoints({
     // Ajout de l'endpoint updateNoteById
     updateNoteById: builder.mutation<
       INote,
-      { id: string; notename?: string; password?: string; roles?: string[]; active?: boolean }
+      { id: string; title?: string; content?: string; assignedTo?: string; createdBy?: string; status: string }
     >({
-      query: ({ id, notename, password, roles, active }) => ({
+      query: ({ id, title, content, assignedTo = undefined, createdBy, status }) => ({
         url: `/notes/${id}`,
         method: "PATCH",
-        body: { notename, password, roles, active },
+        body: { title, content, assignedTo, createdBy, status },
       }),
       invalidatesTags: (_, __, { id }) => [
         { type: "Note", id: "LIST" },

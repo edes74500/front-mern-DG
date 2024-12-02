@@ -9,6 +9,7 @@ import { useState } from "react";
 
 const NoteCardPage = () => {
   const { noteId } = useParams(); // Récupérer l'id depuis l'URL
+
   const {
     data: note,
     isLoading,
