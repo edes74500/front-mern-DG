@@ -1,37 +1,13 @@
-// import { IUser } from "../../../../../types/user";
-// import DeleteUserButton from "./DeleteUserButton";
-// import EditUserButton from "./EditUserButton";
-// import ToogleUserActiveButton from "./ToogleUserActiveButton";
-
-// interface UserTableActionButtonsProps {
-//   user: IUser;
-// }
-
-// const UserTableActionButtons = ({ user }: UserTableActionButtonsProps) => {
-//   // Fonction pour supprimer un utilisateur
-
-//   // Fonction pour désactiver un utilisateur
-
-//   return (
-//     <div className="flex justify-end gap-x-2 ">
-//       <ToogleUserActiveButton user={user} />
-//       <EditUserButton user={user} />
-//       <DeleteUserButton user={user} />
-//     </div>
-//   );
-// };
-// export default UserTableActionButtons;
-
+import { IGetUsersBodyResponse } from "@edes74500/fixrepairshared";
 import { Edit3, Trash } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ConfirmModal from "../../../../components/utils/ConfirmModal";
-import { IUser } from "../../../../types/user";
 import { notify } from "../../../notifications/utils/notifications";
 import { useDeleteUserByIdMutation } from "../../state/usersApiSlice";
 
 interface UserTableActionButtonsProps {
-  user: IUser;
+  user: IGetUsersBodyResponse["users"][number];
 }
 
 const UserTableActionButtons = ({ user }: UserTableActionButtonsProps) => {
@@ -39,17 +15,6 @@ const UserTableActionButtons = ({ user }: UserTableActionButtonsProps) => {
   const [deleteUser] = useDeleteUserByIdMutation();
   // const [updateUser] = useUpdateUserByIdMutation();
   const [isModalOpen, setModalOpen] = useState(false);
-
-  // Activation / Désactivation
-  // const toggleActiveStatus = async () => {
-  //   try {
-  //     await updateUser({ id: user.id, active: !user.active }).unwrap();
-  //     notify(`Utilisateur ${user.active ? "désactivé" : "activé"} avec succès.`, "success");
-  //   } catch (error) {
-  //     console.error("Erreur lors du changement de statut :", error);
-  //     notify("Une erreur est survenue lors du changement de statut.", "error");
-  //   }
-  // };
 
   // Navigation pour édition
   const navigateToEdit = () => {

@@ -1,23 +1,23 @@
+import { IGetUsersBodyResponse, IGetUsersQueryRequest } from "@edes74500/fixrepairshared";
+import { CheckCircle, ChevronDown, ChevronUp, XCircle } from "lucide-react";
 import { Link } from "react-router-dom";
-import { IUser } from "../../../../types/user";
 import RoleBadge from "../../../../components/RoleBadge";
 import UserTableActionButtons from "./UserTableActionButtons";
-import { ChevronDown, ChevronUp, CheckCircle, XCircle } from "lucide-react";
 
 interface UserTableProps {
-  users: IUser[];
-  sortBy: keyof IUser;
-  sort: "asc" | "desc";
+  users: IGetUsersBodyResponse["users"];
+  sortBy: IGetUsersQueryRequest["sortBy"];
+  sort: IGetUsersQueryRequest["sort"];
   isLoading: boolean;
   isFetching: boolean;
-  onSort: (column: keyof IUser) => void;
+  onSort: (column: IGetUsersQueryRequest["sortBy"]) => void;
   isError: boolean;
 }
 
 function UserTable({ isLoading, isFetching, users, sortBy, sort, isError, onSort }: UserTableProps) {
-  const columns: Array<{ key: keyof IUser; label: string }> = [
+  const columns: Array<{ key: IGetUsersQueryRequest["sortBy"]; label: string }> = [
     { key: "username", label: "Nom d'utilisateur" },
-    { key: "dateCreated", label: "Date de création" },
+    { key: "createdAt", label: "Date de création" },
     { key: "lastLogin", label: "Dernière connexion" },
     { key: "roles", label: "Rôles" },
     { key: "active", label: "Actif" },
@@ -65,7 +65,7 @@ function UserTable({ isLoading, isFetching, users, sortBy, sort, isError, onSort
 
                   {/* Date Created */}
                   <td className="px-4 py-3 text-left border-b whitespace-nowrap">
-                    {new Date(user.dateCreated).toLocaleDateString()}
+                    {new Date(user.createdAt).toLocaleDateString()}
                   </td>
 
                   {/* Last Login */}

@@ -1,16 +1,16 @@
-import { useState, useEffect, useRef } from "react";
-import UserTable from "../components/UserList/UserTable";
-import Pagination from "../components/UserList/Pagination";
-import { IUser } from "../../../types/user";
-import { useGetUsersQuery } from "../state/usersApiSlice";
+import { useEffect, useRef, useState } from "react";
 import { notify } from "../../notifications/utils/notifications";
 import AddUserButton from "../components/UserList/AddUserButton";
+import Pagination from "../components/UserList/Pagination";
+import UserTable from "../components/UserList/UserTable";
+import { useGetUsersQuery } from "../state/usersApiSlice";
+import { IGetUsersQueryRequest } from "@edes74500/fixrepairshared";
 
 function UserListPage() {
   const [page, setPage] = useState(1);
   const [limit] = useState(15);
   const [sort, setSort] = useState<"asc" | "desc">("asc");
-  const [sortBy, setSortBy] = useState<keyof IUser>("username");
+  const [sortBy, setSortBy] = useState<IGetUsersQueryRequest["sortBy"]>("username");
 
   // Appel de la requête RTK Query
   const { data, isLoading, isError, isFetching } = useGetUsersQuery({ page, limit, sort, sortBy });

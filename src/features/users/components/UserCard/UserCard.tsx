@@ -1,12 +1,12 @@
+import { IUserBaseResponse } from "@edes74500/fixrepairshared";
 import { Calendar, CheckCircle, Clock, Edit, User as UserIcon, XCircle } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import RoleBadge from "../../../../components/RoleBadge";
 import GenericButton from "../../../../components/ui/GenericButton";
-import { IUser } from "../../../../types/user";
 
 interface UserCardProps {
-  user: IUser;
+  user: IUserBaseResponse;
   onEdit: () => void;
 }
 
@@ -52,7 +52,7 @@ const UserCard: React.FC<UserCardProps> = ({ user, onEdit }) => {
           <Calendar className="w-5 h-5 text-gray-500" />
           <p className="text-sm">
             Créé le :{" "}
-            {new Date(user.dateCreated).toLocaleDateString("fr-FR", {
+            {new Date(user.createdAt).toLocaleDateString("fr-FR", {
               year: "numeric",
               month: "long",
               day: "numeric",
