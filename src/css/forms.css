@@ -37,7 +37,7 @@
   }
 
   input.error {
-    @apply ring-red-500 focus:ring-red-500 ring-4 ring-opacity-80; /* Styles pour les erreurs */
+    @apply ring-red-500 focus:ring-red-500 ring-2 ring-opacity-80; /* Styles pour les erreurs */
   }
 
   input.valid {
@@ -46,5 +46,8 @@
 
   p.error {
     @apply mt-2 text-sm text-red-600;
+  }
+  button {
+    @apply px-4 py-2 text-white bg-gray-500 rounded-md hover:bg-gray-600;
   }
 }

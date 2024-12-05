@@ -1,4 +1,3 @@
-import { IGetUsersResponse } from "@edes74500/fixrepairshared";
 import DOMPurify from "dompurify"; // Protection contre les attaques XSS
 import { useState } from "react";
 import { INoteWithPopulatedUser } from "../../../../types/note";
@@ -7,6 +6,7 @@ import { useUpdateNoteByIdMutation } from "../../state/notesApiSlice";
 import NoteAssignmentForm from "./NoteAssignmentsForm";
 import NoteDetailsForm from "./NoteDetailsForm";
 import { useNavigate } from "react-router-dom";
+import { IGetUsersBodyResponse } from "@edes74500/fixrepairshared";
 
 interface NoteFormData {
   title: string;
@@ -20,7 +20,7 @@ interface AssignmentFormData {
 
 interface EditNoteFormProps {
   note: INoteWithPopulatedUser;
-  users: IGetUsersResponse["users"];
+  users: IGetUsersBodyResponse["users"];
 }
 
 const EditNoteForm = ({ note, users }: EditNoteFormProps) => {

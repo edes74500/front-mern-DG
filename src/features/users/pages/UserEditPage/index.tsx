@@ -1,19 +1,15 @@
 import { IUpdateUserBodyRequest, IUpdateUserQueryRequest } from "@edes74500/fixrepairshared";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import ConfirmModal from "../../../../components/utils/ConfirmModal";
 import { notify } from "../../../notifications/utils/notifications";
 import { useDeleteUserByIdMutation, useGetUserByIdQuery, useUpdateUserByIdMutation } from "../../state/usersApiSlice";
-import EditUserForm from "./EditUserForm";
+import UserEditForm from "./UserEditForm";
 
-const EditUserFetcher = () => {
+const UserEditPage = () => {
   const { userId } = useParams<string>();
   const navigate = useNavigate();
-  const [isModalOpen, setModalOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-
   const { data: user, isLoading, isError } = useGetUserByIdQuery({ userId: userId || "" }, { skip: isDeleting });
-
   const [updateUser] = useUpdateUserByIdMutation();
   const [deleteUser] = useDeleteUserByIdMutation();
 
@@ -44,22 +40,9 @@ const EditUserFetcher = () => {
   };
 
   return (
-    <>
-      <EditUserForm
-        user={user}
-        onUpdateUser={onUpdateUser}
-        onCancel={() => navigate("/dashboard/users/list")}
-        onOpenDeleteModal={() => setModalOpen(true)}
-      />
-      <ConfirmModal
-        isOpen={isModalOpen}
-        onConfirm={onDeleteUser}
-        onCancel={() => setModalOpen(false)}
-        title="Confirmer la suppression"
-        description={`Êtes-vous sûr de vouloir supprimer ${user.username} ? Cette action est irréversible.`}
-      />
-    </>
+    <div className="max-w-xl p-6 bg-white border rounded-lg shadow-md">
+      <UserEditForm user={user} onUpdateUser={onUpdateUser} onDeleteUser={onDeleteUser} />
+    </div>
   );
 };
-
-export default EditUserFetcher;
+export default UserEditPage;

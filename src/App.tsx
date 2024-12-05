@@ -5,16 +5,16 @@ import LoginPage from "./features/auth/pages/LoginPage";
 import DashboardSidebarMenu from "./features/dashboard/layout/UserDashboardLayout";
 import DashboardSettingsPage from "./features/dashboard/pages/DashboardSettingsPage";
 import DashboardWelcomePage from "./features/dashboard/pages/DashboardWelcomePage";
-import AddUserPage from "./features/users/pages/AddUserPage";
-import EditUserPage from "./features/users/pages/EditUserPage";
+import AddNotePage from "./features/notes/pages/CreateNotePage";
+import EditNotePage from "./features/notes/pages/EditNotePage";
+import NoteCardPage from "./features/notes/pages/NoteCardPage";
+import NoteListPage from "./features/notes/pages/NoteListPage";
 import UserCardPage from "./features/users/pages/UserCardPage";
+import UserCreatePage from "./features/users/pages/UserCreatePage";
+import UserEditPage from "./features/users/pages/UserEditPage";
 import UserListPage from "./features/users/pages/UserListPage";
 import MainLayout from "./layout/MainLayout";
 import HomePage from "./pages/HomePage";
-import AddNotePage from "./features/notes/pages/CreateNotePage";
-import NoteListPage from "./features/notes/pages/NoteListPage";
-import NoteCardPage from "./features/notes/pages/NoteCardPage";
-import EditNotePage from "./features/notes/pages/EditNotePage";
 
 function App() {
   return (
@@ -38,8 +38,8 @@ function App() {
           </Route>
           <Route path="users">
             <Route path="list" element={<UserListPage />} />
-            <Route path="add-user" element={<AddUserPage />} />
-            <Route path="edit/:userId" element={<EditUserPage />} />
+            <Route path="add-user" element={<UserCreatePage />} />
+            <Route path="edit/:userId" element={<UserEditPage />} />
             <Route path=":userId" element={<UserCardPage />} />
           </Route>
         </Route>

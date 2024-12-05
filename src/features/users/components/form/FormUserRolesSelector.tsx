@@ -1,7 +1,7 @@
-import { AllowedRoles, IRequiredRoleEnum, IRoleEnum, IUpdateUserBodyRequest } from "@edes74500/fixrepairshared";
+import { AllowedRoles, IRoleEnum, IUpdateUserBodyRequest } from "@edes74500/fixrepairshared";
 import { useFormContext } from "react-hook-form";
 
-const RolesSelector = () => {
+const FormUserRolesSelector = () => {
   const {
     watch,
     setValue,
@@ -12,7 +12,7 @@ const RolesSelector = () => {
   const roles = watch("roles"); // Récupère la valeur actuelle des rôles
 
   const toggleRole = async (role: IRoleEnum) => {
-    const updatedRoles: IRequiredRoleEnum = roles.includes(role) ? roles.filter((r) => r !== role) : [...roles, role];
+    const updatedRoles = roles.includes(role) ? roles.filter((r) => r !== role) : [...roles, role];
 
     // Met à jour les rôles dans le formulaire
     setValue("roles", updatedRoles);
@@ -24,11 +24,11 @@ const RolesSelector = () => {
   const getBadgeColor = (role: IRoleEnum): string => {
     switch (role.toLowerCase()) {
       case "admin":
-        return "bg-red-500"; // Couleur pour Admin
+        return "bg-red-500 hover:bg-red-600"; // Couleur pour Admin
       case "employee":
-        return "bg-green-500"; // Couleur pour Employee
+        return "bg-green-500 hover:bg-green-600"; // Couleur pour Employee
       case "manager":
-        return "bg-yellow-500"; // Couleur pour Manager
+        return "bg-yellow-500 hover:bg-yellow-600"; // Couleur pour Manager
       default:
         return "bg-gray-500"; // Couleur par défaut
     }
@@ -44,7 +44,7 @@ const RolesSelector = () => {
             type="button" // Empêche le bouton de soumettre le formulaire
             onClick={() => toggleRole(role)}
             className={`px-4 py-2 text-sm font-medium text-white rounded-full transition ${
-              roles.includes(role) ? getBadgeColor(role) : "bg-gray-300 text-gray-600"
+              roles.includes(role) ? getBadgeColor(role) : "bg-gray-400 text-gray-600"
             } hover:opacity-80`}
           >
             {role}
@@ -57,4 +57,4 @@ const RolesSelector = () => {
   );
 };
 
-export default RolesSelector;
+export default FormUserRolesSelector;
