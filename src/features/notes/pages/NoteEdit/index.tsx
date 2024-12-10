@@ -1,5 +1,5 @@
 import { NoteUpdateReqBodyDTO, NoteUpdateReqParamsDTO } from "@edes74500/fixrepairshared";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { notify } from "../../../notifications/utils/notifications";
 import { useGetNoteByIdQuery, useUpdateNoteByIdMutation } from "../../state/notesApiSlice";
@@ -29,6 +29,10 @@ const NoteEditPage = () => {
       setIsUpdating(false);
     }
   };
+
+  useEffect(() => {
+    console.log(note);
+  }, [note]);
 
   if (isLoading) return <div>Chargement...</div>;
 
