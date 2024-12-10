@@ -54,10 +54,10 @@ export const notesApiSlice = apiSlice.injectEndpoints({
 
     //* Ajout de l'endpoint updateNoteById
     updateNoteById: builder.mutation<NoteUpdateResBodyDTO, NoteUpdateReqBodyDTO & NoteUpdateReqParamsDTO>({
-      query: ({ noteId, title, content, assignedTo = undefined, createdBy, status }) => ({
+      query: ({ noteId, title, content, assignedTo = undefined, status }) => ({
         url: `/notes/${noteId}`,
         method: "PATCH",
-        body: { title, content, assignedTo, createdBy, status },
+        body: { title, content, assignedTo, status },
       }),
       invalidatesTags: (_, __, { noteId }) => [
         { type: "Note", id: "LIST" },
