@@ -1,4 +1,4 @@
-import { IUpdateUserBodyRequest, IUpdateUserQueryRequest } from "@edes74500/fixrepairshared";
+import { IUserUpdateReqBodyDTO, IUserUpdateReqParamDTO } from "@edes74500/fixrepairshared";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { notify } from "../../../notifications/utils/notifications";
@@ -29,7 +29,7 @@ const UserEditPage = () => {
     }
   };
 
-  const onUpdateUser = async (updatedUser: IUpdateUserBodyRequest & IUpdateUserQueryRequest) => {
+  const onUpdateUser = async (updatedUser: IUserUpdateReqParamDTO & IUserUpdateReqBodyDTO) => {
     try {
       await updateUser(updatedUser).unwrap();
       notify(`Utilisateur ${updatedUser.username} mis à jour avec succès.`, "success");

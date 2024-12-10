@@ -1,37 +1,38 @@
+import {
+  INoteCreateReqBodyDTO,
+  INoteCreateResBodyDTO,
+  INoteDeleteReqParamsDTO,
+  INoteDeleteResBodyDTO,
+  INoteGetByIdReqParamsDTO,
+  INoteGetByIdResBodyDTO,
+  INoteGetResBodyDTO,
+  INoteGetResQueryDTO,
+  NoteUpdateReqBodyDTO,
+  NoteUpdateReqParamsDTO,
+  NoteUpdateResBodyDTO,
+} from "@edes74500/fixrepairshared";
 import { apiSlice } from "../../../app/api/apiSlice";
-import { IApiNote, IApiNoteWithPopulatedUser, INote, INoteWithPopulatedUser } from "../../../types/note";
 
 export const notesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getNotes: builder.query<INoteWithPopulatedUser[], void>({
+    //* get notes with query params
+    getNotes: builder.query<INoteGetResBodyDTO, INoteGetResQueryDTO>({
       query: () => ({
         url: "/notes",
         method: "GET",
       }),
-      transformResponse: (response: IApiNoteWithPopulatedUser[]) => {
-        return response.map((note) => ({
-          ...note,
-          id: note._id, // Ajout d'un champ `id` basé sur `_id`
-        }));
-      },
       providesTags: (result) =>
         result
-          ? [{ type: "Note", id: "LIST" }, ...result.map((note) => ({ type: "Note" as const, id: note._id }))]
+          ? [{ type: "Note", id: "LIST" }, ...result.map((note) => ({ type: "Note" as const, id: note.id }))]
           : [{ type: "Note", id: "LIST" }],
-      // refetchOnInvalidate: true,
     }),
 
-    getNoteById: builder.query<INoteWithPopulatedUser, { noteId: string }>({
+    //* get note by id
+    getNoteById: builder.query<INoteGetByIdResBodyDTO, INoteGetByIdReqParamsDTO>({
       query: ({ noteId }) => ({
         url: `/notes/${noteId}`,
         method: "GET",
       }),
-      transformResponse: (response: IApiNoteWithPopulatedUser) => {
-        return {
-          ...response,
-          id: response._id, // Ajout d'un champ `id` basé sur `_id`
-        };
-      },
       providesTags: (result) =>
         result
           ? [
@@ -41,41 +42,38 @@ export const notesApiSlice = apiSlice.injectEndpoints({
           : [{ type: "Note", id: "LIST" }],
     }),
 
-    // Ajout de l'endpoint createNote
-    createNote: builder.mutation<INote, { title: string; content: string; userId: string }>({
+    //* Ajout de l'endpoint createNote
+    createNote: builder.mutation<INoteCreateResBodyDTO, INoteCreateReqBodyDTO>({
       query: (newNote) => ({
         url: "/notes",
         method: "POST",
         body: newNote,
       }),
-
       invalidatesTags: [{ type: "Note", id: "LIST" }],
     }),
 
-    // Ajout de l'endpoint updateNoteById
-    updateNoteById: builder.mutation<
-      INote,
-      { id: string; title?: string; content?: string; assignedTo?: string; createdBy?: string; status: string }
-    >({
-      query: ({ id, title, content, assignedTo = undefined, createdBy, status }) => ({
-        url: `/notes/${id}`,
+    //* Ajout de l'endpoint updateNoteById
+    updateNoteById: builder.mutation<NoteUpdateResBodyDTO, NoteUpdateReqBodyDTO & NoteUpdateReqParamsDTO>({
+      query: ({ noteId, title, content, assignedTo = undefined, createdBy, status }) => ({
+        url: `/notes/${noteId}`,
         method: "PATCH",
         body: { title, content, assignedTo, createdBy, status },
       }),
-      invalidatesTags: (_, __, { id }) => [
+      invalidatesTags: (_, __, { noteId }) => [
         { type: "Note", id: "LIST" },
-        { type: "Note", id: id },
+        { type: "Note", id: noteId },
       ],
     }),
 
-    deleteNoteById: builder.mutation<INote, { id: string }>({
-      query: ({ id }) => ({
-        url: `/notes/${id}`,
+    //* Suppression d'un note par son ID
+    deleteNoteById: builder.mutation<INoteDeleteResBodyDTO, INoteDeleteReqParamsDTO>({
+      query: ({ noteId }) => ({
+        url: `/notes/${noteId}`,
         method: "DELETE",
       }),
-      invalidatesTags: (_, __, { id }) => [
+      invalidatesTags: (_, __, { noteId }) => [
         { type: "Note", id: "LIST" },
-        { type: "Note", id: id },
+        { type: "Note", id: noteId },
       ],
     }),
   }),
@@ -88,39 +86,3 @@ export const {
   useDeleteNoteByIdMutation,
   useUpdateNoteByIdMutation,
 } = notesApiSlice;
-
-// // Sélecteur pour les résultats bruts de l'API
-// export const selectNotesResult = (queryArg: {
-//   page: number;
-//   limit: number;
-//   sort?: "asc" | "desc";
-//   sortBy?: string;
-//   search?: string;
-//   roles?: string[];
-//   active?: boolean;
-// }) => notesApiSlice.endpoints.getNotes.select(queryArg);
-
-// // Créez un sélecteur pour accéder aux données de l'utilisateur transformées
-// const selectNotesData =
-//   (queryArg: {
-//     page: number;
-//     limit: number;
-//     sort?: "asc" | "desc";
-//     sortBy?: string;
-//     search?: string;
-//     roles?: string[];
-//     active?: boolean;
-//   }) =>
-//   (state: RootState) => {
-//     const notesResult = notesApiSlice.endpoints.getNotes.select(queryArg)(state); // Appeler avec l'état Redux
-//     return notesResult?.data ?? initialState; // Retourner les données ou l'état initial
-//   };
-
-// Sélecteurs pour accéder aux utilisateurs via l'adapter
-// export const {
-//   selectAll: selectAllNotes,
-//   selectById: selectNoteById,
-//   selectIds: selectNoteIds,
-// } = notesAdapter.getSelectors((state: RootState) =>
-//   selectNotesData({ page: 1, limit: 10, sort: "asc", sortBy: "notename" })(state),
-// );

@@ -1,17 +1,17 @@
-import { IUpdateUserBodyRequest, IUserBaseResponse, updateUserRequestBodySchema } from "@edes74500/fixrepairshared";
+import { IUserGetByIdResBodyDTO, IUserUpdateReqBodyDTO, userUpdateFormValidation } from "@edes74500/fixrepairshared";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import FormInputBloc from "../../../../components/forms/FormInputBloc";
 import GenericButton from "../../../../components/ui/GenericButton";
 import ConfirmModal from "../../../../components/utils/ConfirmModal";
 import { notify } from "../../../notifications/utils/notifications";
-import FormInputBloc from "../../components/form/FormInputBloc";
 import UserRolesSelector from "../../components/form/FormUserRolesSelector";
 import FormUserSetActif from "../../components/form/FormUserSetActif";
 
 interface UserEditFormProps {
-  user: IUserBaseResponse;
+  user: IUserGetByIdResBodyDTO;
   onUpdateUser: (updatedUser: any) => void;
   onDeleteUser: () => void;
 }
@@ -32,8 +32,8 @@ const UserEditForm = ({ user, onUpdateUser, onDeleteUser }: UserEditFormProps) =
     // onCancel();
   };
 
-  const methods = useForm<IUpdateUserBodyRequest>({
-    resolver: zodResolver(updateUserRequestBodySchema),
+  const methods = useForm<IUserUpdateReqBodyDTO>({
+    resolver: zodResolver(userUpdateFormValidation),
     defaultValues: {
       username: user.username,
       password: "",
@@ -44,7 +44,8 @@ const UserEditForm = ({ user, onUpdateUser, onDeleteUser }: UserEditFormProps) =
 
   const { handleSubmit, reset } = methods;
 
-  const onSubmit = (data: IUpdateUserBodyRequest) => {
+  const onSubmit = (data: IUserUpdateReqBodyDTO) => {
+    console.log(data);
     onUpdateUser({
       userId: user.id,
       ...data,
@@ -67,7 +68,7 @@ const UserEditForm = ({ user, onUpdateUser, onDeleteUser }: UserEditFormProps) =
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           <h2 className="text-xl font-semibold text-gray-700">Modifier l'utilisateur</h2>
           <FormInputBloc name="username" label="Nom d'utilisateur" />
-          <FormInputBloc name="password" label="Mot de passe" type="password" />
+          <FormInputBloc name="password" label="Mot de passe" />
           <FormUserSetActif />
           <UserRolesSelector />
           <div className="flex justify-end gap-3 pt-10">

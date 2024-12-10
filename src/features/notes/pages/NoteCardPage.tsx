@@ -9,17 +9,19 @@ import { useState } from "react";
 
 const NoteCardPage = () => {
   const { noteId } = useParams(); // Récupérer l'id depuis l'URL
-
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteNote] = useDeleteNoteByIdMutation();
   const {
     data: note,
     isLoading,
     isError,
-  } = useGetNoteByIdQuery({
-    noteId: noteId || "",
-  });
+  } = useGetNoteByIdQuery(
+    {
+      noteId: noteId || "",
+    },
+    { skip: isDeleting },
+  );
   const [isModalOpen, setModalOpen] = useState(false);
-
-  const [deleteNote] = useDeleteNoteByIdMutation();
 
   const navigate = useNavigate();
 
@@ -57,12 +59,14 @@ const NoteCardPage = () => {
   }
 
   const onConfirmDelete = async () => {
+    setIsDeleting(true);
     try {
-      await deleteNote({ id: note.id }).unwrap();
+      await deleteNote({ noteId: note.id }).unwrap();
       navigate("/dashboard/notes/list");
       setModalOpen(false);
       notify(`Note ${note.title} supprimé avec succès.`, "success");
     } catch (error: any) {
+      setIsDeleting(false);
       notify(`Erreur : ${error?.data?.message || "Une erreur inconnue est survenue."}`, "error");
     } finally {
     }

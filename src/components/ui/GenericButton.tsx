@@ -6,7 +6,7 @@ interface GenericButtonProps {
   onClick?: () => void;
   icon?: JSX.Element;
   className?: string; // Pour personnaliser les styles
-  variant?: "primary" | "secondary" | "danger" | "back" | "save" | "delete" | "cancel" | "create"; // Variants prédéfinis
+  variant?: "primary" | "secondary" | "danger" | "back" | "save" | "delete" | "cancel" | "create" | "loading"; // Variants prédéfinis
   type?: "button" | "submit"; // Type du bouton
   disabled?: boolean; // Permet d'activer/désactiver le bouton en fonction d'une condition
 }
@@ -32,6 +32,7 @@ const GenericButton = ({
     save: "bg-blue-600 hover:bg-blue-700",
     cancel: " bg-gray-400 hover:bg-gray-500",
     create: "bg-blue-600 hover:bg-blue-700",
+    loading: "bg-blue-200 hover:bg-blue-200",
   };
 
   if (variant === "back") {

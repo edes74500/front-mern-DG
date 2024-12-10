@@ -5,16 +5,16 @@ import LoginPage from "./features/auth/pages/LoginPage";
 import DashboardSidebarMenu from "./features/dashboard/layout/UserDashboardLayout";
 import DashboardSettingsPage from "./features/dashboard/pages/DashboardSettingsPage";
 import DashboardWelcomePage from "./features/dashboard/pages/DashboardWelcomePage";
-import AddNotePage from "./features/notes/pages/CreateNotePage";
-import EditNotePage from "./features/notes/pages/EditNotePage";
 import NoteCardPage from "./features/notes/pages/NoteCardPage";
-import NoteListPage from "./features/notes/pages/NoteListPage";
+import AddNotePage from "./features/notes/pages/NoteCreate";
+import NoteEditPage from "./features/notes/pages/NoteEdit";
 import UserCardPage from "./features/users/pages/UserCardPage";
 import UserCreatePage from "./features/users/pages/UserCreatePage";
 import UserEditPage from "./features/users/pages/UserEditPage";
-import UserListPage from "./features/users/pages/UserListPage";
+import UserListPage from "./features/users/pages/UserListPage/index";
 import MainLayout from "./layout/MainLayout";
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/home";
+import NoteListPage from "./features/notes/pages/NoteListPage";
 
 function App() {
   return (
@@ -34,11 +34,11 @@ function App() {
             <Route path="list" element={<NoteListPage />} />
             <Route path="create-note" element={<AddNotePage />} />
             <Route path=":slug/:noteId" element={<NoteCardPage />} />
-            <Route path="edit/:noteId" element={<EditNotePage />} />
+            <Route path="edit/:noteId" element={<NoteEditPage />} />
           </Route>
           <Route path="users">
             <Route path="list" element={<UserListPage />} />
-            <Route path="add-user" element={<UserCreatePage />} />
+            <Route path="create-user" element={<UserCreatePage />} />
             <Route path="edit/:userId" element={<UserEditPage />} />
             <Route path=":userId" element={<UserCardPage />} />
           </Route>

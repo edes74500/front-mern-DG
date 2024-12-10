@@ -1,4 +1,4 @@
-import { AllowedRoles, IRoleEnum, IUpdateUserBodyRequest } from "@edes74500/fixrepairshared";
+import { IRoleEnum, UserAllowedRoles } from "@edes74500/fixrepairshared";
 import { useFormContext } from "react-hook-form";
 
 const FormUserRolesSelector = () => {
@@ -7,12 +7,12 @@ const FormUserRolesSelector = () => {
     setValue,
     trigger, // Méthode pour déclencher la validation manuelle
     formState: { errors },
-  } = useFormContext<IUpdateUserBodyRequest>();
+  } = useFormContext();
 
   const roles = watch("roles"); // Récupère la valeur actuelle des rôles
 
   const toggleRole = async (role: IRoleEnum) => {
-    const updatedRoles = roles.includes(role) ? roles.filter((r) => r !== role) : [...roles, role];
+    const updatedRoles = roles.includes(role) ? roles.filter((r: IRoleEnum) => r !== role) : [...roles, role];
 
     // Met à jour les rôles dans le formulaire
     setValue("roles", updatedRoles);
@@ -36,23 +36,27 @@ const FormUserRolesSelector = () => {
 
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-600">Rôles</label>
-      <div className="flex flex-wrap gap-2 mt-2">
-        {AllowedRoles.map((role) => (
-          <button
-            key={role}
-            type="button" // Empêche le bouton de soumettre le formulaire
-            onClick={() => toggleRole(role)}
-            className={`px-4 py-2 text-sm font-medium text-white rounded-full transition ${
-              roles.includes(role) ? getBadgeColor(role) : "bg-gray-400 text-gray-600"
-            } hover:opacity-80`}
-          >
-            {role}
-          </button>
-        ))}
-      </div>
-      {/* Affichage des erreurs */}
-      {errors.roles && <p className="mt-2 text-sm text-red-600">{errors.roles.message}</p>}
+      <label className="block text-sm font-medium text-gray-600">
+        <div className="flex flex-wrap gap-2 mt-2">
+          {UserAllowedRoles.map((role) => (
+            <button
+              key={role}
+              type="button" // Empêche le bouton de soumettre le formulaire
+              onClick={() => toggleRole(role)}
+              className={`px-4 py-2 text-sm font-medium text-white rounded-full transition ${
+                roles.includes(role) ? getBadgeColor(role) : "bg-gray-400 text-gray-600"
+              } hover:opacity-80`}
+            >
+              {role}
+            </button>
+          ))}
+        </div>
+        {/* Affichage des erreurs */}
+        {/* Affichage des erreurs */}
+        {errors.roles && typeof errors.roles.message === "string" && (
+          <p className="mt-2 text-sm text-red-600">{errors.roles.message}</p>
+        )}
+      </label>
     </div>
   );
 };

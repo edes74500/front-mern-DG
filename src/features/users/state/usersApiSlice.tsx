@@ -1,44 +1,45 @@
 import {
-  ICreateUserBodyRequest,
-  ICreateUserBodyResponse,
-  IDeleteUserQueryRequest,
-  IGetUserByIdQueryRequest,
-  IGetUsersBodyResponse,
-  IGetUsersQueryRequest,
-  IUpdateUserBodyRequest,
-  IUpdateUserQueryRequest,
-  IUserBaseResponse,
+  IUserCreateReqBodyDTO,
+  IUserCreateResBodyDTO,
+  IUserDeleteReqParamsDTO,
+  IUserDeleteResDTO,
+  IUserGetByIdParamsDTO,
+  IUserGetByIdResBodyDTO,
+  IUserGetReqQueryDTO,
+  IUserGetResBodyDTO,
+  IUserUniqueReqQueryTDO,
+  IUserUniqueResBodyTDO,
+  IUserUpdateReqBodyDTO,
+  IUserUpdateReqParamDTO,
+  IUserUpdateResBodyDTO,
 } from "@edes74500/fixrepairshared";
 import { apiSlice } from "../../../app/api/apiSlice";
-// import { IUser } from "../../../types/user";
-// import { ICreateNewUserTransformedResponse } from "@shared/types/users/user.type";
 
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getUsers: builder.query<IGetUsersBodyResponse, IGetUsersQueryRequest>({
-      query: ({ page, limit, sort = "desc", sortBy = "username", roles, active, search }) => {
-        // Construire les paramètres de requête dynamiquement
-        const params = new URLSearchParams({
+    //* get all users with query params
+    getUsers: builder.query<IUserGetResBodyDTO, IUserGetReqQueryDTO>({
+      query: ({ page = 1, limit = 15, sort = "desc", sortBy = "username", roles, active, search, username }) => ({
+        url: `/users`,
+        method: "GET",
+        params: {
           page: String(page),
           limit: String(limit),
           sort,
           sortBy,
-        });
-
-        if (roles && roles.length > 0) params.append("roles", String(roles));
-        if (active !== undefined) params.append("active", String(active));
-        if (search) params.append("search", search);
-
-        return `/users?${params.toString()}`;
-      },
+          ...(roles && { roles: roles.join(",") }),
+          ...(active !== undefined && { active: String(active) }),
+          ...(search && { search: String(search) }),
+          ...(username && { username }),
+        },
+      }),
       providesTags: (result) =>
         result
           ? [{ type: "User", id: "LIST" }, ...result.users.map((user) => ({ type: "User" as const, id: user.id }))]
           : [{ type: "User", id: "LIST" }],
-      //   refetchOnInvalidate: true,
     }),
-
-    getUserById: builder.query<IUserBaseResponse, IGetUserByIdQueryRequest>({
+    //* get user by id
+    getUserById: builder.query<IUserGetByIdResBodyDTO, IUserGetByIdParamsDTO>({
       query: ({ userId }) => ({
         url: `/users/${userId}`,
         method: "GET",
@@ -46,18 +47,14 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       providesTags: (result) =>
         result
           ? [
-              { type: "User", id: result.id }, // Associe l'utilisateur par ID
-              { type: "User", id: "LIST" }, // Invalide aussi la liste
+              { type: "User", id: result.id },
+              { type: "User", id: "LIST" },
             ]
           : [{ type: "User", id: "LIST" }],
     }),
 
-    // Ajout de l'endpoint createUser
-    createUser: builder.mutation<
-      // { username: string; password: string; roles: string[]; active: boolean }
-      ICreateUserBodyResponse,
-      ICreateUserBodyRequest
-    >({
+    //* Creation d'un nouvel utilisateur
+    createUser: builder.mutation<IUserCreateResBodyDTO, IUserCreateReqBodyDTO>({
       query: (newUser) => ({
         url: "/users",
         method: "POST",
@@ -67,12 +64,8 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: [{ type: "User", id: "LIST" }],
     }),
 
-    // Mise à jour de l'utilisateur
-    updateUserById: builder.mutation<
-      IUserBaseResponse,
-      IUpdateUserBodyRequest & IUpdateUserQueryRequest
-      // { id: string; username?: string; password?: string; roles?: string[]; active?: boolean }
-    >({
+    //* Mise à jour de l'utilisateur par son ID
+    updateUserById: builder.mutation<IUserUpdateResBodyDTO, IUserUpdateReqBodyDTO & IUserUpdateReqParamDTO>({
       query: ({ userId, username, password, roles, active }) => {
         return {
           url: `/users/${userId}`,
@@ -86,8 +79,8 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       ],
     }),
 
-    // Suppression d'un utilisateur
-    deleteUserById: builder.mutation<IUserBaseResponse, IDeleteUserQueryRequest>({
+    //* Suppression d'un utilisateur par son ID
+    deleteUserById: builder.mutation<IUserDeleteResDTO, IUserDeleteReqParamsDTO>({
       query: ({ userId }) => ({
         url: `/users/${userId}`,
         method: "DELETE",
@@ -96,6 +89,16 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         { type: "User", id: "LIST" },
         { type: "User", id: userId },
       ],
+    }),
+
+    //* Vérification d'unicité d'un utilisateur
+    checkUniqueness: builder.query<IUserUniqueResBodyTDO, IUserUniqueReqQueryTDO>({
+      query: ({ username, email }) => ({
+        url: `/users/check-unique`,
+        method: "GET",
+        params: { username, email },
+      }),
+      keepUnusedDataFor: 10,
     }),
   }),
 });
@@ -106,34 +109,5 @@ export const {
   useGetUserByIdQuery,
   useDeleteUserByIdMutation,
   useUpdateUserByIdMutation,
+  useCheckUniquenessQuery,
 } = usersApiSlice;
-
-// Sélecteur pour les résultats bruts de l'API
-// export const selectUsersResult = (queryArg: {
-//   page: number;
-//   limit: number;
-//   sort?: "asc" | "desc";
-//   sortBy?: string;
-//   search?: string;
-//   roles?: string[];
-//   active?: boolean;
-// }) => usersApiSlice.endpoints.getUsers.select(queryArg);
-
-//  //endpoints pour fetch user by role with query parameters
-//     getUsersByRole: builder.query<IUser[], { role: string[] }>({
-//       query: ({ role }) => ({
-//         url: `/users/roles?roles=${role.join(",")}`,
-//         method: "GET",
-//       }),
-//       transformResponse: (response: IApiUser[]) => {
-//         const loadedUsers: IUser[] = response.map((user) => ({
-//           ...user,
-//           id: user._id, // Ajouter le champ `id`
-//         }));
-//         return loadedUsers;
-//       },
-//       providesTags: (result) =>
-//         result
-//           ? [{ type: "User", id: "LIST" }, ...result.map((user) => ({ type: "User" as const, id: user._id }))]
-//           : [{ type: "User", id: "LIST" }],
-//     }),
