@@ -56,7 +56,7 @@ export const notesApiSlice = apiSlice.injectEndpoints({
     updateNoteById: builder.mutation<NoteUpdateResBodyDTO, NoteUpdateReqBodyDTO & NoteUpdateReqParamsDTO>({
       query: ({ noteId, title, content, assignedTo = undefined, status }) => ({
         url: `/notes/${noteId}`,
-        method: "PATCH",
+        method: "PUT",
         body: { title, content, assignedTo, status },
       }),
       invalidatesTags: (_, __, { noteId }) => [
