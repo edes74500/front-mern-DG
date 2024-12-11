@@ -69,7 +69,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       query: ({ userId, username, password, roles, active }) => {
         return {
           url: `/users/${userId}`,
-          method: "PATCH",
+          method: "PUT",
           body: { username, password, roles, active },
         };
       },

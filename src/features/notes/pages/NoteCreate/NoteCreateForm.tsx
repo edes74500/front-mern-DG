@@ -39,7 +39,6 @@ const NoteCreateForm = ({ onCreateNote, currentUser, isLoading }: NoteCreateForm
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-        <h2 className="text-xl font-semibold text-gray-700">Creer une note</h2>
         <FormInputBloc name="title" label="Titre" />
         <FormTextAreaBloc name="content" label="Contenu" rows={10} />
         <div className="flex justify-end gap-3">

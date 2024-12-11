@@ -1,6 +1,8 @@
+import GenericButton from "@/components/ui/GenericButton";
 import { useDebounce } from "@/hooks/useDounce";
-import { SearchIcon } from "lucide-react";
+import { PlusCircle, SearchIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface UserTableSearchProps {
   setQueryOptions: (options: any) => void; // update query options prop
@@ -9,7 +11,7 @@ interface UserTableSearchProps {
 const UserTableSearch = ({ setQueryOptions }: UserTableSearchProps) => {
   const [searchTerm, setSearchTerm] = useState(""); // État pour stocker la saisie utilisateur
   const debouncedSearch = useDebounce(searchTerm, 500); // Applique le debounce sur searchTerm
-
+  const navigate = useNavigate();
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value); // Met à jour la saisie en temps réel
   };
@@ -23,7 +25,7 @@ const UserTableSearch = ({ setQueryOptions }: UserTableSearchProps) => {
   }, [debouncedSearch, setQueryOptions]); // Exécute à chaque changement de debouncedSearch
 
   return (
-    <div className="py-5">
+    <div className="flex items-center justify-between py-5">
       <div className="flex items-center w-full max-w-sm bg-white border border-gray-300 rounded-md shadow-sm ">
         <input
           type="text"
@@ -35,6 +37,13 @@ const UserTableSearch = ({ setQueryOptions }: UserTableSearchProps) => {
         <button className="p-2 text-gray-600 bg-gray-100 rounded-r-md hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400">
           <SearchIcon className="w-5 h-5" />
         </button>
+      </div>
+      <div className="">
+        <GenericButton
+          text="Ajouter un utilisateur"
+          onClick={() => navigate("/dashboard/users/create-user")}
+          icon={<PlusCircle />}
+        />
       </div>
     </div>
   );

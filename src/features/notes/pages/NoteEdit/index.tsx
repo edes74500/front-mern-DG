@@ -38,7 +38,7 @@ const NoteEditPage = () => {
 
   return (
     <div className="max-w-xl p-5 bg-white border rounded-lg shadow-md">
-      <h2 className="text-xl font-semibold text-gray-700">Creer une note</h2>
+      <h2 className="text-xl font-semibold text-gray-700">Editer la note</h2>
       <NoteEditForm note={note} isUpdating={isUpdating} isError={isError} onUpdateNote={onUpdateNote} users={users} />
     </div>
   );

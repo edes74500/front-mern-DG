@@ -1,6 +1,6 @@
 import { IUserGetReqQueryDTO } from "@edes74500/fixrepairshared";
 import { useState } from "react";
-import { useGetUsersQuery } from "../../state/usersApiSlice";
+import { useCreateUserMutation, useGetUsersQuery } from "../../state/usersApiSlice";
 import { DataTable } from "./User-data-table";
 import { columns } from "./User-data-table-columns";
 import Pagination from "./User-data-table-pagination";
@@ -19,7 +19,7 @@ const UserListPage = () => {
   // Fetch des données utilisateur avec RTK Query
   const { data } = useGetUsersQuery(queryOptions);
   const users = data?.users || [];
-
+  const [createUser, { isLoading: isCreatingLoading, isError: isCreatingError }] = useCreateUserMutation();
   const handleSortingChange = (sorting: SortingState) => {
     if (sorting.length > 0) {
       const { id, desc } = sorting[0];

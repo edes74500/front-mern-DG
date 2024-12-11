@@ -25,7 +25,7 @@ const CreateNotePage = () => {
 
   return (
     <div className="max-w-xl p-5 bg-white border rounded-lg shadow-md">
-      <h2 className="text-xl font-semibold text-gray-700">Creer une note</h2>
+      <h2 className="pb-5 text-xl font-semibold text-gray-700">Creer une note</h2>
       <NoteCreateForm onCreateNote={onCreateNote} currentUser={currentUser} isLoading={isLoading} />
     </div>
   );

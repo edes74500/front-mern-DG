@@ -53,7 +53,7 @@ function UserCreateForm({ onCreateUser, isLoading, onUsernameChange, isUsernameT
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-        <h2 className="text-xl font-semibold text-gray-700">Modifier l'utilisateur</h2>
+        <h2 className="text-xl font-semibold text-gray-700">Creer un nouvel utilisateur</h2>
         <FormInputBloc
           name="username"
           label="nom d'utilisateur"

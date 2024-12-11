@@ -9,12 +9,12 @@ import NoteCardPage from "./features/notes/pages/NoteCardPage";
 import AddNotePage from "./features/notes/pages/NoteCreate";
 import NoteEditPage from "./features/notes/pages/NoteEdit";
 import UserCardPage from "./features/users/pages/UserCardPage";
-import UserCreatePage from "./features/users/pages/UserCreatePage";
 import UserEditPage from "./features/users/pages/UserEditPage";
 import UserListPage from "./features/users/pages/UserListPage/index";
 import MainLayout from "./layout/MainLayout";
 import HomePage from "./pages/home";
 import NoteListPage from "./features/notes/pages/NoteListPage";
+import UserCreatePage from "./features/users/pages/UserCreatePage";
 
 function App() {
   return (
