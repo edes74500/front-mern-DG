@@ -8,7 +8,7 @@ export const store = configureStore({
     notifications: notificationReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
-  devTools: import.meta.env.MODE === "development", // Active Redux DevTools en mode développement
+  // devTools: import.meta.env.MODE === "development", // Active Redux DevTools en mode développement
 });
 
 // Typage du store (recommandé pour TypeScript)
