@@ -21,8 +21,8 @@ const DashboardSidebarMenu = () => {
       {/* Menu Hamburger pour mobile */}
       <div className="sticky top-0 z-10 flex items-center justify-between p-4 shadow-md md:hidden bg-slate-500">
         <span className="text-lg text-white">Dashboard</span>
-        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-2xl text-white">
-          ☰ {/* Icône hamburger */}
+        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-2xl text-white bg-transparent">
+          ☰
         </button>
       </div>
 
