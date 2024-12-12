@@ -6,7 +6,7 @@ import { DataTable } from "./User-data-table";
 import { columns } from "./User-data-table-columns";
 import Pagination from "./User-data-table-pagination";
 import UserTableSearch from "./User-table-search.tsx";
-//TODO : faire le tableau
+
 const UserListPage = () => {
   const [queryOptions, setQueryOptions] = useState<IUserGetReqQueryDTO>({
     page: 1,

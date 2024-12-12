@@ -19,6 +19,7 @@ import {
 // export type Payment = {
 //   users: IUserGetResBodyDTO["users"];
 // };
+//TODO : ajouter la logique pour la colonne actions
 
 export const columns: ColumnDef<IUserGetResBodyDTO["users"][number], unknown>[] = [
   {

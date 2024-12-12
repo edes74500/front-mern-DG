@@ -1,15 +1,32 @@
 import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLoginMutation } from "../api/authApiSlice";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [login] = useLoginMutation();
+  const [rateLimitInfo, setRateLimitInfo] = useState({
+    limit: undefined,
+    remaining: undefined,
+    reset: undefined,
+  });
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log("Tentative de connexion avec:", email, password);
+    try {
+      await login({ username: email, password }).unwrap();
+      console.log("Login successful! Cookie should be set.");
+    } catch (err: any) {
+      const rateLimit = err.rateLimit;
+      setRateLimitInfo(rateLimit);
+    }
   };
+
+  useEffect(() => {
+    console.log(rateLimitInfo);
+  }, [rateLimitInfo]);
 
   return (
     <div className="flex items-center justify-center flex-grow w-full h-full bg-gray-100">
@@ -24,7 +41,7 @@ function LoginPage() {
               Adresse e-mail
             </label>
             <input
-              type="email"
+              type="text"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -67,6 +84,12 @@ function LoginPage() {
             </button>
           </div>
         </form>
+        {rateLimitInfo.remaining === "0" && rateLimitInfo?.reset && (
+          <div className="mt-4 text-center text-red-600">
+            Vous avez atteint le nombre maximum de tentatives de connexion. Veuillez réessayer dans{" "}
+            {rateLimitInfo.reset} secondes.
+          </div>
+        )}
       </div>
     </div>
   );
