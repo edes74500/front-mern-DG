@@ -7,11 +7,14 @@ import NotesListDisplay from "./NotesListDisplay";
 import { useGetNotesQuery } from "../../state/notesApiSlice";
 
 const NoteListPage = () => {
-  const { data: notes, isLoading, isError, isFetching } = useGetNotesQuery({});
+  const { data: notes, isLoading, isError, isFetching, refetch } = useGetNotesQuery({});
+  const [hasNotifiedError, setHasNotifiedError] = useState(true);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    refetch(); // Re-fetch à chaque chargement de la page
+  }, []);
   // Référence pour suivre si une erreur a déjà été notifiée
-  const [hasNotifiedError, setHasNotifiedError] = useState(true);
 
   useEffect(() => {
     // Si une erreur est présente et n'a pas encore été notifiée
@@ -36,7 +39,7 @@ const NoteListPage = () => {
           icon={<PlusCircle />}
         />
       </div>
-      {(isLoading || isFetching) && <p className="text-lg text-gray-500">Chargement des notes...</p>}
+      {(isLoading || isFetching || isError) && <p className="text-lg text-gray-500">Chargement des notes...</p>}
       {!notes && !isFetching && !isLoading && <p className="text-lg text-red-600">Aucune note à afficher.</p>}
       {notes && <NotesListDisplay notes={notes} />}
       <div className="p-4">{/* <AddUserButton /> */}</div>

@@ -20,9 +20,6 @@ interface DataTableProps<TData, TValue> {
 
 export function DataTable<TData, TValue>({ columns, data, onSortingChange }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
-  useEffect(() => {
-    console.log(sorting);
-  }, [sorting]);
   const table = useReactTable({
     data,
     columns,

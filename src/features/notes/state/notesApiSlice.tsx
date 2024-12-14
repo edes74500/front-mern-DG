@@ -40,6 +40,7 @@ export const notesApiSlice = apiSlice.injectEndpoints({
               { type: "Note", id: "LIST" }, // Invalide aussi la liste
             ]
           : [{ type: "Note", id: "LIST" }],
+      keepUnusedDataFor: 10,
     }),
 
     //* Ajout de l'endpoint createNote

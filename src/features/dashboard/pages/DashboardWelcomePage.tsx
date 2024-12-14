@@ -1,6 +1,10 @@
+import { selectCurrentUser } from "@/features/auth/state/authSlice";
+import { useSelector } from "react-redux";
+
 const DashboardWelcomePage = () => {
   // Simuler des données dynamiques (statistiques sur les notes)
-  const userName = "John Doe"; // Récupéré via un contexte ou une API
+  const currentUser = useSelector(selectCurrentUser);
+  const userName = currentUser?.username || ""; // Récupéré via un contexte ou une API
   const stats = {
     active: 15,
     completed: 8,

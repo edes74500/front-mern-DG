@@ -1,12 +1,12 @@
 import {
   INoteGetByIdResBodyDTO,
   IUserGetResBodyDTO,
+  NoteUpdateFormData,
   noteUpdateFormValidation,
   NoteUpdateReqBodyDTO,
   NoteUpdateReqParamsDTO,
 } from "@edes74500/fixrepairshared";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import FormInputBloc from "../../../../components/forms/FormInputBloc";
@@ -37,24 +37,11 @@ const NoteEditForm = ({ note, isUpdating, isError, users, onUpdateNote }: NoteEd
 
   const {
     handleSubmit,
-    watch,
+    setFocus,
     formState: { errors },
   } = methods;
 
-  useEffect(() => {
-    console.log(watch("assignedTo"));
-    console.log(watch("status"));
-  }, [watch()]);
-
-  useEffect(() => {
-    if (Object.keys(errors).length > 0) {
-      console.error("Erreurs de validation :", errors);
-    }
-  }, [errors]);
-
   const onSubmit = (updatedNote: NoteUpdateReqBodyDTO) => {
-    console.log("Mise à jour de la note...");
-    console.log(updatedNote);
     if (!note) return;
     onUpdateNote(note.id, updatedNote);
   };
@@ -74,7 +61,14 @@ const NoteEditForm = ({ note, isUpdating, isError, users, onUpdateNote }: NoteEd
       {isError && <p>Une erreur est survenue lors du chargement des données.</p>}
       {!isError && note && (
         <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          <form
+            onSubmit={handleSubmit(onSubmit, () => {
+              // Gestion des erreurs et focus sur le premier champ avec une erreur
+              const firstError = Object.keys(errors)[0]; // Trouve le premier champ avec une erreur
+              if (firstError) setFocus(firstError as keyof NoteUpdateFormData);
+            })}
+            className="space-y-5"
+          >
             <FormInputBloc name="title" label="Titre" />
             <FormTextAreaBloc name="content" label="Contenu" rows={10} />
             <FormSelectBloc

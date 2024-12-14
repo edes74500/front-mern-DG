@@ -1,6 +1,7 @@
 import { Eye, EyeOff } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useLoginMutation } from "../api/authApiSlice";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../state/authApiSlice";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -12,21 +13,41 @@ function LoginPage() {
     remaining: undefined,
     reset: undefined,
   });
+  const [currentError, setCurrentError] = useState(null);
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (usernameRef.current) {
+      usernameRef.current.focus();
+    }
+  }, []);
+
+  // const currentUser = useSelector(selectCurrentUser);
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     navigate("/dashboard");
+  //   }
+  // }, [currentUser]);
+
+  // if (currentUser) {
+  //   return <div>Vous êtes déjà connecté!</div>;
+  // }
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setCurrentError(null);
     try {
       await login({ username: email, password }).unwrap();
       console.log("Login successful! Cookie should be set.");
+      navigate("/dashboard");
     } catch (err: any) {
+      console.log("error", err);
+      setCurrentError(err?.error?.data?.message);
       const rateLimit = err.rateLimit;
       setRateLimitInfo(rateLimit);
     }
   };
-
-  useEffect(() => {
-    console.log(rateLimitInfo);
-  }, [rateLimitInfo]);
 
   return (
     <div className="flex items-center justify-center flex-grow w-full h-full bg-gray-100">
@@ -41,6 +62,7 @@ function LoginPage() {
               Adresse e-mail
             </label>
             <input
+              ref={usernameRef}
               type="text"
               id="email"
               value={email}
@@ -84,6 +106,7 @@ function LoginPage() {
             </button>
           </div>
         </form>
+        {currentError && <div className="mt-4 text-center text-red-600">{currentError}</div>}
         {rateLimitInfo.remaining === "0" && rateLimitInfo?.reset && (
           <div className="mt-4 text-center text-red-600">
             Vous avez atteint le nombre maximum de tentatives de connexion. Veuillez réessayer dans{" "}

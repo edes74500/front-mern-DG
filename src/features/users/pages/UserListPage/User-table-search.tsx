@@ -18,10 +18,12 @@ const UserTableSearch = ({ setQueryOptions }: UserTableSearchProps) => {
 
   // Met à jour les options après le debounce
   useEffect(() => {
-    setQueryOptions((prev: any) => ({
-      ...prev,
-      search: debouncedSearch, // Envoie la valeur après le debounce
-    }));
+    if (debouncedSearch) {
+      setQueryOptions((prev: any) => ({
+        ...prev,
+        search: debouncedSearch, // Envoie la valeur après le debounce
+      }));
+    }
   }, [debouncedSearch, setQueryOptions]); // Exécute à chaque changement de debouncedSearch
 
   return (

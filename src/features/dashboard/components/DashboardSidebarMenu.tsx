@@ -30,7 +30,7 @@ const DashboardSidebarMenu = () => {
       {isMenuOpen && (
         <div
           onClick={() => setIsMenuOpen(false)} // Ferme le menu au clic
-          className="fixed inset-0 z-50 bg-opacity-50 bg-slate-400 backdrop-blur-sm"
+          className="fixed inset-0 z-20 bg-opacity-50 bg-slate-400 backdrop-blur-sm"
         ></div>
       )}
 
@@ -38,7 +38,7 @@ const DashboardSidebarMenu = () => {
       <div
         className={`${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } fixed top-0 left-0 z-50 h-full w-64 transition-transform duration-300 md:sticky md:translate-x-0 bg-slate-500`}
+        } fixed top-0 left-0 z-20 h-full w-64 transition-transform duration-300 md:sticky md:translate-x-0 bg-slate-500`}
       >
         <div className="sticky top-0 w-full">
           <Link

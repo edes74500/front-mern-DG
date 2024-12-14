@@ -21,10 +21,6 @@ function Pagination({ data, setQueryOptions }: PaginationProps) {
     }));
   };
 
-  useEffect(() => {
-    console.log(currentLimit);
-  }, [currentLimit]);
-
   return (
     <div className="flex items-center justify-between mt-6">
       {/* Dropdown for selecting the limit */}
