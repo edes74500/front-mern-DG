@@ -8,7 +8,7 @@
   status = 200
  
  [[redirects]]
-  from = "/api/*"
+  from = "api/*"
   to = "https://api.passionanim.fr/:splat"
   status = 200
   force = true
