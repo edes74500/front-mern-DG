@@ -1,13 +1,13 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./css/global.css";
-import "./css/forms.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import App from "./App.tsx";
 import { store } from "./app/store.ts";
 import ScrollToHash from "./components/utils/ScrollToHash.tsx";
+import "./css/forms.css";
+import "./css/global.css";
 import NotificationProvider from "./features/notifications/components/Notification.tsx";
-import App from "./App.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -15,8 +15,11 @@ createRoot(document.getElementById("root")!).render(
       <BrowserRouter>
         <NotificationProvider />
         <ScrollToHash />
+
         <Routes>
+          {/* <Route element={<TokenRefresh />}> */}
           <Route path="*" element={<App />} />
+          {/* </Route> */}
         </Routes>
       </BrowserRouter>
     </Provider>

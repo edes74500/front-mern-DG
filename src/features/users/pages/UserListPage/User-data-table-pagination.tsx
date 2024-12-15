@@ -1,5 +1,5 @@
 import { IUserGetResBodyDTO } from "@edes74500/fixrepairshared";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface PaginationProps {
   data: IUserGetResBodyDTO;

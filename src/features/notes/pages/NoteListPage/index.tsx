@@ -29,6 +29,8 @@ const NoteListPage = () => {
     }
   }, [isError]);
 
+  if (isLoading) return null;
+
   return (
     <div className="">
       <h1 className="mb-4 text-2xl font-bold text-gray-800">Liste des Notes</h1>
@@ -39,7 +41,7 @@ const NoteListPage = () => {
           icon={<PlusCircle />}
         />
       </div>
-      {(isLoading || isFetching || isError) && <p className="text-lg text-gray-500">Chargement des notes...</p>}
+      {isError && <p className="text-lg text-red-500">Erreur lors du chargement des notes...</p>}
       {!notes && !isFetching && !isLoading && <p className="text-lg text-red-600">Aucune note à afficher.</p>}
       {notes && <NotesListDisplay notes={notes} />}
       <div className="p-4">{/* <AddUserButton /> */}</div>

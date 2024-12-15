@@ -38,12 +38,12 @@ const DashboardSidebarMenu = () => {
       <div
         className={`${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } fixed top-0 left-0 z-20 h-full w-64 transition-transform duration-300 md:sticky md:translate-x-0 bg-slate-500`}
+        } fixed top-0 left-0 z-20 h-full w-64 transition-transform duration-300 md:sticky md:translate-x-0 bg-blue-400`}
       >
         <div className="sticky top-0 w-full">
           <Link
             to="/dashboard"
-            className="flex items-center justify-center w-full text-xl font-bold text-white bg-slate-600 hover:bg-slate-700 p-7"
+            className="flex items-center justify-center w-full text-xl font-bold text-white bg-blue-600 hover:bg-blue-700 p-7"
           >
             <Home className="w-5 h-5 mr-2" /> Dashboard
           </Link>

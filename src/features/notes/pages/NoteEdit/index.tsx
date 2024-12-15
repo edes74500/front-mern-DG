@@ -34,7 +34,7 @@ const NoteEditPage = () => {
     console.log(note);
   }, [note]);
 
-  if (isLoading) return <div>Chargement...</div>;
+  if (isLoading) return null;
 
   return (
     <div className="max-w-xl p-5 bg-white border rounded-lg shadow-md">

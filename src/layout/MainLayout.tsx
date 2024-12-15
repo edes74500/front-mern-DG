@@ -13,10 +13,7 @@ const MainLayout = () => {
         <Header setIsUserMenuOpen={setIsUserMenuOpen} isUserMenuOpen={isUserMenuOpen} />
       </div>
       {isUserMenuOpen && (
-        <div
-          className={` fixed top-0 bottom-0 left-0 right-0 z-30 bg-black bg-opacity-30`}
-          onClick={() => setIsUserMenuOpen(false)}
-        ></div>
+        <div className="fixed top-0 bottom-0 left-0 right-0 z-30 bg-black bg-opacity-30 animate-fadeIn "></div>
       )}
       <main>
         {" "}

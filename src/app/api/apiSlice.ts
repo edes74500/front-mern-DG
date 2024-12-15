@@ -1,6 +1,6 @@
+import { clearUserState, setAccessToken, setUser } from "@/features/auth/state/authSlice";
 import { createApi, fetchBaseQuery, FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
-import { clearUserState, setAccessToken } from "@/features/auth/state/authSlice";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -21,14 +21,14 @@ const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
 
   if ((result.error as FetchBaseQueryError)?.status === 401) {
     console.log("Token expired, attempting to refresh...");
-    const refreshResult = await baseQuery({ url: "/auth/refresh", method: "GET" }, api, extraOptions);
+    const refreshResult = (await baseQuery({ url: "/auth/refresh", method: "GET" }, api, extraOptions)) as any;
 
-    if (refreshResult.data) {
-      api.dispatch(setAccessToken(refreshResult.data.accessToken));
+    if (refreshResult && refreshResult.data) {
+      await api.dispatch(setAccessToken(refreshResult.data.accessToken));
+      await api.dispatch(setUser(refreshResult.data.user));
       result = await baseQuery(args, api, extraOptions);
     } else {
       api.dispatch(clearUserState());
-      // Réinitialise l'état de l'API
       api.dispatch(apiSlice.util.resetApiState());
     }
   }

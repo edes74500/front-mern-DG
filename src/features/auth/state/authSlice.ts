@@ -7,7 +7,7 @@ const authSlice = createSlice({
   initialState: {
     user: null,
     accessToken: null,
-    isReady: false,
+    isAppLoading: true,
   },
   reducers: {
     setUser(state, action) {
@@ -16,20 +16,21 @@ const authSlice = createSlice({
     setAccessToken(state, action) {
       state.accessToken = action.payload;
     },
-    setIsReady(state, action) {
-      state.isReady = action.payload;
+    setIsAppLoading(state, action) {
+      state.isAppLoading = action.payload;
     },
+
     clearUserState(state) {
       state.user = null;
       state.accessToken = null;
-      state.isReady = false;
     },
   },
 });
 
-export const { setUser, setAccessToken, clearUserState, setIsReady } = authSlice.actions;
+export const { setUser, setAccessToken, clearUserState, setIsAppLoading } = authSlice.actions;
 
 export const selectCurrentUser = (state: RootState): IUserApi | null => state.auth.user;
 export const selectCurrentToken = (state: RootState) => state.auth.accessToken;
+export const selectIsAppLoading = (state: RootState) => state.auth.isAppLoading;
 
 export default authSlice.reducer;
