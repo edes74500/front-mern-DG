@@ -2,7 +2,7 @@ import { clearUserState, setAccessToken, setUser } from "@/features/auth/state/a
 import { createApi, fetchBaseQuery, FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = "/api";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: API_BASE_URL,
